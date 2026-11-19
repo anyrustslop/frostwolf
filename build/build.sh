@@ -32,7 +32,8 @@ fi
 echo "::endgroup::"
 
 echo "::group::Build"
-./mach build
+# Lower priority, so the CI runner's own agent always gets CPU time.
+nice -n 10 ./mach build
 echo "::endgroup::"
 
 echo "::group::Package"
