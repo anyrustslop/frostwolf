@@ -24,6 +24,11 @@ export MOZBUILD_STATE_PATH="${MOZBUILD_STATE_PATH:-$HOME/.mozbuild}"
 
 echo "::group::Toolchains (mach bootstrap)"
 ./mach --no-interactive bootstrap --application-choice browser
+# Rust for the Windows target (the build machine's Rust only has the Linux one).
+if command -v rustup > /dev/null; then
+    rustup target add x86_64-pc-windows-msvc
+    rustc --version
+fi
 echo "::endgroup::"
 
 echo "::group::Build"
