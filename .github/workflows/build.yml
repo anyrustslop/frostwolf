@@ -56,15 +56,17 @@ jobs:
         run: |
           python3 -m pip install --quiet --user --break-system-packages pillow
           python3 -c "import PIL; print('Pillow', PIL.__version__)"
-          # NSIS for the installer exe. If the package mirror misbehaves, the build continues and
+          # msitools unpacks the Windows SDK (required). NSIS makes the installer exe: if it can't be
+          # installed, the build continues and
           # only the portable zip is published.
           for i in 1 2 3; do
             if timeout 300 sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 update -q &&
-               timeout 300 sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 install -y -q --no-install-recommends nsis; then
+               timeout 300 sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 install -y -q --no-install-recommends nsis msitools wine64; then
               break
             fi
             echo "apt attempt $i failed"; sleep 20
           done
+          command -v msiextract > /dev/null || { echo "::error::msitools (msiextract) is needed to unpack the Windows SDK"; exit 1; }
           command -v makensis || echo "::warning::NSIS unavailable: no installer exe this time"
 
       - name: Free disk space
