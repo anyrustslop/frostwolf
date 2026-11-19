@@ -15,6 +15,7 @@
       <p class="lead">Firefox, hardened for privacy. You're already protected; this page shows what's set up
         and a few trusted tools that make your privacy even stronger. Take your time: everything here is optional.</p>
       <nav class="steps" aria-label="Sections">
+        <a href="#tor"><span>🧅</span> Tor</a>
         <a href="#search"><span>1</span> Search</a>
         <a href="#extensions"><span>2</span> Extensions</a>
         <a href="#vpn"><span>3</span> VPN</a>
@@ -25,6 +26,39 @@
   </header>
 
   <main>
+    <!-- Tor -->
+    <section id="tor" class="tor">
+      <div class="tor-head">
+        <img class="logo big" src="logos/tor.png" alt="" width="64" height="64">
+        <div>
+          <h2>Tor is on</h2>
+          <p class="intro">Every connection FrostWolf makes, DNS included, goes through the <b>Tor network</b>, bounced
+            through three volunteer relays. <b>Websites can't see your IP address or where you are</b>, and your internet
+            provider can't see which sites you visit. Each website gets its own Tor route. Tor starts with FrostWolf and stops when you close it.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div class="panel">
+          <h3>Good to know</h3>
+          <ul class="plain">
+            <li>Pages can load a bit slower, and some sites show more CAPTCHAs or block Tor (some banks, streaming services).</li>
+            <li>Sites see a Tor exit in another country, so they may show another language or region.</li>
+            <li>Logging in to an account tells that site who you are, Tor or not.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Turn Tor off (or back on)</h3>
+          <ul class="plain">
+            <li>Type <kbd>about:config</kbd> in the address bar, accept the warning.</li>
+            <li>Search <kbd>frostwolf.tor.enabled</kbd> and set it to <b>false</b> (or <b>true</b>).</li>
+            <li>Restart FrostWolf. Without Tor, FrostWolf uses encrypted DNS (Quad9) instead.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="howto">FrostWolf isn't Tor Browser: if your safety depends on staying anonymous (journalism, activism,
+        dangerous situations), use <b>Tor Browser</b>, which has extra protections built just for that.</p>
+    </section>
+
     <!-- 1. Search -->
     <section id="search">
       <h2><span class="num">1</span> Your search engine</h2>
@@ -89,6 +123,9 @@
     <!-- 3. VPN -->
     <section id="vpn">
       <h2><span class="num">3</span> Should you use a VPN?</h2>
+      <p class="intro">With Tor on, FrostWolf already hides your IP address from websites, so <b>you don't need a VPN
+        for browsing in FrostWolf</b>. A VPN is still useful for the rest of your PC (other apps, games, downloads) and if
+        you turn Tor off.</p>
       <div class="split">
         <div class="panel">
           <h3>What a VPN does</h3>
@@ -157,7 +194,7 @@
         <div class="feat"><h3>Hard to fingerprint</h3><p>You look like every other FrostWolf, Tor Browser and Mullvad Browser user.</p></div>
         <div class="feat"><h3>Forgets on close</h3><p>Cookies, history and cache are wiped when you close FrostWolf.</p></div>
         <div class="feat"><h3>Scam protection</h3><p>FrostWolf Guard blocks "press Win+R and paste" ClickFix scams.</p></div>
-        <div class="feat"><h3>Encrypted DNS</h3><p>Quad9 with malware blocking; HTTPS-only connections.</p></div>
+        <div class="feat"><h3>IP address hidden</h3><p>Everything goes through Tor; DNS too. HTTPS-only connections.</p></div>
       </div>
       <div class="panel tips">
         <h3>Good to know</h3>

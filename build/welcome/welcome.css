@@ -137,3 +137,13 @@ footer { padding: 8px 24px 48px; text-align: center; color: var(--muted); font-s
   .split { grid-template-columns: 1fr; }
   section { padding: 22px; }
 }
+
+/* Tor section */
+.tor {
+  border-color: rgba(167, 120, 220, 0.55);
+  background: linear-gradient(180deg, rgba(60, 34, 92, 0.55), rgba(19, 35, 58, 0.72));
+}
+.tor-head { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 18px; }
+.tor-head h2 { margin-top: 4px; }
+.logo.big { width: 64px; height: 64px; border-radius: 14px; }
+.steps a[href="#tor"] span { background: #b98cf0; }

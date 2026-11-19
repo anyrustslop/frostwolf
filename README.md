@@ -14,7 +14,7 @@
 </p>
 
 > [!WARNING]
-> FrostWolf is a young, independent project. It's Firefox underneath, so sites work like in Firefox, but security updates reach you when FrostWolf rebuilds a new Firefox ESR (checked every day) and you install it. It doesn't update itself yet.
+> FrostWolf is a young, independent project. With Tor on (the default) your IP address is hidden, but FrostWolf is not Tor Browser: if your safety depends on anonymity, use [Tor Browser](https://www.torproject.org). It's Firefox underneath, so sites work like in Firefox, but security updates reach you when FrostWolf rebuilds a new Firefox ESR (checked every day) and you install it. It doesn't update itself yet.
 
 <br>
 
@@ -37,6 +37,7 @@ FrostWolf's answer: collect nothing, block the trackers, look like everyone else
 | Feature | What it means for you |
 |---|---|
 | 🦊 **Real Firefox** | **Firefox ESR**, the long-term-support Firefox that Tor Browser and Mullvad Browser are also built on, compiled from Mozilla's source tarball and verified against Mozilla's SHA-512 checksums. Every site that works in Firefox works here. |
+| 🧅 **Tor built in, on by default** | FrostWolf ships the official **Tor** (verified at build time against the Tor Project's checksums and signing key) and starts it with the browser. Every connection, DNS included, goes through the Tor network, so **websites can't see your IP address or location**, and your internet provider can't see which sites you visit. Each website gets its own Tor route; WebRTC can't leak your real IP. Tor stops when you close FrostWolf. Turn it off with `frostwolf.tor.enabled` in `about:config`. |
 | 🚫 **Nothing phones home** | No telemetry, studies, crash reports, sponsored content or Pocket, and no Mozilla updater or crash reporter compiled in. |
 | 🛡️ **Trackers and ads blocked** | **uBlock Origin** installed on first start, tracking protection on *Strict*, Total Cookie Protection, tracking parameters stripped from links, Global Privacy Control. |
 | 👤 **You look like everyone else** | Firefox's *resist fingerprinting* mode (the same protection Tor Browser and Mullvad Browser use), letterboxing, WebGL off, no local IP leaks over WebRTC. |
@@ -47,7 +48,7 @@ FrostWolf's answer: collect nothing, block the trackers, look like everyone else
 | 🧊 **Hardened engine** | The JavaScript engine's optimizing JIT and regular-expression JIT are off (they're where most browser exploits strike), as are WebGPU and SVG-in-font parsing. Every site runs in its own process, and web pages can't make Windows graphics-kernel (win32k) calls. |
 | 🪤 **Anti-ClickFix Guard** | A built-in add-on checks everything a site tries to put in your clipboard. Fake-CAPTCHA "press Win+R and paste" commands are blocked, obfuscated ones too (`p^ower^shell`…), with a warning that explains the scam. Your own copying is never touched. |
 | 🎣 **Anti-phishing** | Full addresses always shown (no hidden `https://` or `www`), Windows link types that scams abuse (`search-ms:`, `ms-msdt:`…) blocked, uBlock Origin's malware, badware and URLhaus lists on. |
-| 🌐 **Encrypted DNS** | DNS over HTTPS through **Quad9** (non-profit, Swiss, blocks known malware domains), plus Encrypted Client Hello where sites support it, so your network sees much less of where you go. |
+| 🌐 **Encrypted DNS** | With Tor off: DNS over HTTPS through **Quad9** (non-profit, Swiss, blocks known malware domains), plus Encrypted Client Hello where sites support it. (With Tor on, DNS goes through Tor.) |
 | 🧩 **Locked-down add-ons** | Only signed add-ons can be installed, and add-ons slipped in by other programs on your PC stay disabled. |
 | 💾 **Leaves less on your PC** | Memory-only cache, no form history, no form data or cookies in session-restore files, passwords filled only when you click. |
 | 🔕 **Quiet by default** | Notification prompts blocked, no autoplaying sound or video, no push-service connection, no tracking beacons, no motion sensors, gamepads or VR APIs. |
@@ -56,10 +57,11 @@ FrostWolf's answer: collect nothing, block the trackers, look like everyone else
 
 ### Further than LibreWolf, still made for every day
 
-FrostWolf starts from LibreWolf-style defaults and adds the hardening above on top. Everything was chosen to stay out of your way in normal browsing; the one trade-off is speed in **very heavy web apps** (online editors, 3D, big spreadsheets), which run a little slower without the optimizing JIT. If one feels slow, you can undo any setting in `about:config`:
+FrostWolf starts from LibreWolf-style defaults and adds the hardening above on top. Everything was chosen to stay out of your way in normal browsing. The trade-offs: Tor makes pages a bit slower and some sites show more CAPTCHAs or block Tor, and **very heavy web apps** (online editors, 3D, big spreadsheets), which run a little slower without the optimizing JIT. If one feels slow, you can undo any setting in `about:config`:
 
 | If you want… | Set in `about:config` |
 |---|---|
+| To browse without Tor (faster; sites see your IP) | `frostwolf.tor.enabled` → `false`, then restart |
 | Full JavaScript speed (heavy web apps) | `javascript.options.ion` → `true` |
 | Notifications from a site | allow it in the site's padlock menu |
 | Videos that start by themselves | `media.autoplay.default` → `0` |

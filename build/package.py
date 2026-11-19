@@ -70,6 +70,12 @@ def main():
     snippet = snippet.replace("@FROSTWOLF_LOGO_PNG@", base64.b64encode(small.getvalue()).decode())
     with open(os.path.join(app, "frostwolf.cfg"), "a", encoding="utf8") as f:
         f.write(snippet)
+        # Tor, on by default (tor/tor/tor.exe + tor/data/geoip*, verified by fetch_tor.py).
+        f.write(open(os.path.join(s, "tor.cfg.js"), encoding="utf8").read())
+    sys.path.insert(0, os.path.join(HERE, "tor"))
+    import fetch_tor  # noqa: E402
+    tor_version = fetch_tor.main(os.path.join(app, "tor"))
+    print(f"Tor {tor_version} included")
 
     logo.render(256).save(os.path.join(out, "frostwolf.ico"),
                           sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
