@@ -83,14 +83,9 @@ jobs:
           sudo mkdir -p /mnt/work /mnt/mozbuild && sudo chown -R "$USER" /mnt/work /mnt/mozbuild
           free -m; df -h / /mnt
 
-      - name: Compiler cache
-        if: steps.v.outputs.skip != 'true'
-        uses: mozilla-actions/sccache-action@v0.0.9
-
       - name: Build Firefox ${{ steps.v.outputs.esr }} as Frostwolf
         if: steps.v.outputs.skip != 'true'
         env:
-          SCCACHE_GHA_ENABLED: "true"
           WORK: /mnt/work
           MOZBUILD_STATE_PATH: /mnt/mozbuild
         run: |

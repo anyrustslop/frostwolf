@@ -33,6 +33,3 @@ ac_add_options --disable-default-browser-agent
 ac_add_options --with-unsigned-addon-scopes=app,system
 ac_add_options --allow-addon-sideload
 export MOZ_REQUIRE_SIGNING=
-
-# Compiler cache shared between CI runs (C++ and Rust).
-ac_add_options --with-ccache=sccache
