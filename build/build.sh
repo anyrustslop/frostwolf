@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds Frostwolf for Windows x64 on Linux.
+# Builds FrostWolf for Windows x64 on Linux.
 #   bash build/build.sh <firefox ESR version, e.g. 153.7.0esr>
 # Result: work/firefox-src/obj/dist/frostwolf-*.win64.zip (packaged by build/package.py).
 set -euo pipefail
@@ -14,7 +14,7 @@ python3 "$HERE/fetch_source.py" get "$VER" "$WORK"
 SRC="$WORK/firefox-src"
 echo "::endgroup::"
 
-echo "::group::Frostwolf branding"
+echo "::group::FrostWolf branding"
 python3 "$HERE/branding/apply_branding.py" "$SRC"
 cp "$HERE/mozconfig" "$SRC/mozconfig"
 echo "::endgroup::"

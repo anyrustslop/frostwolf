@@ -1,4 +1,4 @@
-# Builds Frostwolf (Firefox ESR, rebranded and hardened) for Windows x64 and publishes releases.
+# Builds FrostWolf (Firefox ESR, rebranded and hardened) for Windows x64 and publishes releases.
 # - tag vX:      build + release of the ESR version in FIREFOX_VERSION
 # - daily:       if Mozilla published a newer Firefox ESR (security updates), build + release it
 # - push to main / manual run: test build, uploaded as a workflow artifact (no release)
@@ -52,7 +52,7 @@ jobs:
             [ "$code" = "200" ] && skip=true
           fi
           echo "skip=$skip" >> "$GITHUB_OUTPUT"
-          echo "Firefox $esr -> Frostwolf $ver (skip: $skip)"
+          echo "Firefox $esr -> FrostWolf $ver (skip: $skip)"
 
       - name: Tools
         if: steps.v.outputs.skip != 'true'
@@ -87,7 +87,7 @@ jobs:
           sudo mkdir -p /mnt/work /mnt/mozbuild && sudo chown -R "$USER" /mnt/work /mnt/mozbuild
           free -m; df -h / /mnt
 
-      - name: Build Firefox ${{ steps.v.outputs.esr }} as Frostwolf
+      - name: Build Firefox ${{ steps.v.outputs.esr }} as FrostWolf
         if: steps.v.outputs.skip != 'true'
         env:
           WORK: /mnt/work
@@ -120,23 +120,23 @@ jobs:
           if command -v makensis > /dev/null; then
             makensis -V2 -DVERSION="${{ steps.v.outputs.version }}" -DSRC="$PWD/dist" build/installer.nsi
           fi
-          cd dist && sha256sum Frostwolf-* > SHA256SUMS.txt && cat SHA256SUMS.txt
+          cd dist && sha256sum FrostWolf-* > SHA256SUMS.txt && cat SHA256SUMS.txt
 
       - name: Upload build
         if: steps.v.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: Frostwolf-${{ steps.v.outputs.version }}
+          name: FrostWolf-${{ steps.v.outputs.version }}
           path: |
-            dist/Frostwolf-*.zip
-            dist/Frostwolf-*.exe
+            dist/FrostWolf-*.zip
+            dist/FrostWolf-*.exe
             dist/SHA256SUMS.txt
 
       - name: Signed build provenance
         if: steps.v.outputs.skip != 'true' && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'schedule')
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: dist/Frostwolf-*
+          subject-path: dist/FrostWolf-*
 
       - name: Publish release
         if: steps.v.outputs.skip != 'true' && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'schedule')
@@ -148,5 +148,5 @@ jobs:
             .github/release-notes.md > notes.md
           extra=()
           if [ "${{ github.event_name }}" = "schedule" ]; then extra=(--target "$GITHUB_SHA"); fi
-          gh release create "$tag" dist/Frostwolf-* dist/SHA256SUMS.txt \
-            --title "Frostwolf $ver" --notes-file notes.md "${extra[@]}"
+          gh release create "$tag" dist/FrostWolf-* dist/SHA256SUMS.txt \
+            --title "FrostWolf $ver" --notes-file notes.md "${extra[@]}"

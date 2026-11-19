@@ -1,4 +1,4 @@
-# Frostwolf build configuration: Firefox ESR for Windows x64, cross-compiled on Linux
+# FrostWolf build configuration: Firefox ESR for Windows x64, cross-compiled on Linux
 # (the way Mozilla's own CI builds Firefox for Windows). Toolchains (clang, Rust, the Windows
 # SDK, ...) are downloaded by Mozilla's bootstrap.
 
@@ -15,9 +15,9 @@ ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-tests
 
-# Frostwolf identity.
+# FrostWolf identity.
 ac_add_options --with-app-name=frostwolf
-ac_add_options --with-app-basename=Frostwolf
+ac_add_options --with-app-basename=FrostWolf
 ac_add_options --with-branding=browser/branding/frostwolf
 ac_add_options --with-distribution-id=io.github.anyrustslop.frostwolf
 
@@ -26,10 +26,10 @@ ac_add_options --with-distribution-id=io.github.anyrustslop.frostwolf
 ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
 ac_add_options --disable-default-browser-agent
-# (Telemetry / data reporting are only compiled in for Mozilla's official builds; Frostwolf
+# (Telemetry / data reporting are only compiled in for Mozilla's official builds; FrostWolf
 # also locks them off in frostwolf.cfg.)
 
-# Frostwolf's own (unsigned) built-in theme lives in the application folder.
+# FrostWolf's own (unsigned) built-in theme lives in the application folder.
 ac_add_options --with-unsigned-addon-scopes=app,system
 ac_add_options --allow-addon-sideload
 export MOZ_REQUIRE_SIGNING=

@@ -1,5 +1,5 @@
 """Renders the README banner (assets/banner.png): night-sky ice gradient, frost facets, the
-Frostwolf logo and name. Needs Pillow and a TrueType font (Segoe UI / Bahnschrift on Windows).
+FrostWolf logo and name. Needs Pillow and a TrueType font (Segoe UI / Bahnschrift on Windows).
 python banner.py <out dir>  (banner.png + section-*.png)"""
 import math
 import os
@@ -71,7 +71,7 @@ def main(out):
     d = ImageDraw.Draw(img)
     x0 = int(W * 0.47)
     title = font("bahnschrift.ttf", 132)
-    d.text((x0, 112), "Frostwolf", font=title, fill=(232, 246, 255, 255))
+    d.text((x0, 112), "FrostWolf", font=title, fill=(232, 246, 255, 255))
     sub = font("segoeui.ttf", 40)
     d.text((x0 + 4, 268), "Firefox, hardened for privacy.", font=sub, fill=(150, 210, 250, 255))
     small = font("seguisb.ttf", 27)

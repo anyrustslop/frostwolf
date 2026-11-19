@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Frostwolf Ice",
-  "description": "Frostwolf's built-in dark ice-blue theme.",
+  "name": "FrostWolf Ice",
+  "description": "FrostWolf's built-in dark ice-blue theme.",
   "version": "1.0",
   "browser_specific_settings": { "gecko": { "id": "frostwolf-ice@frostwolf" } },
   "theme": {

@@ -1,8 +1,8 @@
 """Creates browser/branding/frostwolf in a Firefox source tree.
 
 Starts from Firefox's own "unofficial" branding (so every file Firefox expects is there), then
-replaces every icon and image with Frostwolf's logo at the same size, and every product name with
-"Frostwolf". Usage: python apply_branding.py <firefox source dir>
+replaces every icon and image with FrostWolf's logo at the same size, and every product name with
+"FrostWolf". Usage: python apply_branding.py <firefox source dir>
 """
 import os
 import re
@@ -14,7 +14,7 @@ from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import logo  # noqa: E402
 
-NAME = "Frostwolf"
+NAME = "FrostWolf"
 URL = "https://codeberg.org/anyrustslop/frostwolf"
 RELEASES = "https://github.com/anyrustslop/frostwolf/releases"
 DARK_BG = (11, 18, 32, 255)

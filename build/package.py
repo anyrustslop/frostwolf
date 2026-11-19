@@ -1,10 +1,10 @@
-"""Turns Firefox's packaged zip into Frostwolf's release files.
+"""Turns Firefox's packaged zip into FrostWolf's release files.
 
   python package.py <firefox package zip> <version> <out dir>
 
-Adds Frostwolf's settings (autoconfig + frostwolf.cfg), policies.json and the built-in ice theme,
+Adds FrostWolf's settings (autoconfig + frostwolf.cfg), policies.json and the built-in ice theme,
 then writes:
-  Frostwolf-<version>-win64-portable.zip   (unzip anywhere, run frostwolf.exe)
+  FrostWolf-<version>-win64-portable.zip   (unzip anywhere, run frostwolf.exe)
   app/                                     (the same files, for the installer: build/installer.nsi)
   frostwolf.ico
 """
@@ -47,12 +47,12 @@ def main():
     logo.render(256).save(os.path.join(out, "frostwolf.ico"),
                           sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
 
-    portable = os.path.join(out, f"Frostwolf-{version}-win64-portable.zip")
+    portable = os.path.join(out, f"FrostWolf-{version}-win64-portable.zip")
     with zipfile.ZipFile(portable, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for dp, _, files in os.walk(app):
             for f in files:
                 full = os.path.join(dp, f)
-                z.write(full, os.path.join("Frostwolf", os.path.relpath(full, app)))
+                z.write(full, os.path.join("FrostWolf", os.path.relpath(full, app)))
     print(portable)
 
 

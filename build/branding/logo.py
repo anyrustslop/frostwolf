@@ -1,4 +1,4 @@
-"""Frostwolf's logo: the geometric wolf head of its sibling RustWolf, in ice blue.
+"""FrostWolf's logo: the geometric wolf head of its sibling RustWolf, in ice blue.
 
 Renders straight from polygons (no image files in the repo), so every icon Firefox's branding
 needs can be generated at its exact size. Needs Pillow.
@@ -99,9 +99,9 @@ def svg():
 
 
 def wordmark_svg():
-    """'Frostwolf' wordmark (used where Firefox shows its name as an image)."""
+    """'FrostWolf' wordmark (used where Firefox shows its name as an image)."""
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 42">'
-            f'<text x="0" y="32" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="600" fill="{ACCENT}">Frostwolf</text>'
+            f'<text x="0" y="32" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="600" fill="{ACCENT}">FrostWolf</text>'
             '</svg>')
 
 
