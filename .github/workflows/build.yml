@@ -83,7 +83,16 @@ jobs:
         if: steps.v.outputs.skip != 'true'
         env:
           SCCACHE_GHA_ENABLED: "true"
-        run: bash build/build.sh "${{ steps.v.outputs.esr }}"
+        run: |
+          set +e
+          bash build/build.sh "${{ steps.v.outputs.esr }}" 2>&1 | tee build.log
+          rc=${PIPESTATUS[0]}
+          if [ "$rc" -ne 0 ]; then
+            # Show the end of the log on the run page (readable without signing in).
+            msg=$(grep -v '^::' build.log | tail -40 | sed 's/%/%25/g' | tr '\n' '|' | tail -c 3800)
+            echo "::error title=Build failed (last lines)::$msg"
+          fi
+          exit "$rc"
 
       - name: Package (portable zip + installer)
         if: steps.v.outputs.skip != 'true'
