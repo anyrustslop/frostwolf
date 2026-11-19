@@ -1,41 +1,96 @@
-# Frostwolf
+<p align="center">
+  <img src="assets/banner.png" alt="Frostwolf: Firefox, hardened for privacy" width="100%">
+</p>
 
-**Firefox, built from Mozilla's source, rebranded in ice blue and hardened for privacy.**
-The ice-blue sibling of [RustWolf](https://github.com/anyrustslop/rustwolf) (the red, all-Rust browser on the Servo engine).
+<p align="center">
+  <a href="https://github.com/anyrustslop/frostwolf/releases/latest"><img alt="Download" src="https://img.shields.io/github/v/release/anyrustslop/frostwolf?label=download&color=5ec8ff&style=for-the-badge"></a>
+  <a href="https://codeberg.org/anyrustslop/frostwolf"><img alt="Source on Codeberg" src="https://img.shields.io/badge/source-Codeberg-2185d0?style=for-the-badge&logo=codeberg&logoColor=white"></a>
+  <a href="LICENSE"><img alt="License MPL-2.0" src="https://img.shields.io/badge/license-MPL--2.0-1e3a5c?style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <b>Frostwolf</b> is Firefox, built from Mozilla's own source code, with everything that watches you switched off<br>
+  and the protections Firefox already has turned all the way up. Same web, same speed, nobody looking over your shoulder.
+</p>
 
 > [!WARNING]
-> Frostwolf is a new, unofficial Firefox build by a small project. It is Firefox underneath, so websites work like in Firefox, but security fixes only reach you when Frostwolf rebuilds a new Firefox ESR (checked daily) and you install it. Frostwolf doesn't update itself yet.
+> Frostwolf is a young, independent project. It's Firefox underneath, so sites work like in Firefox, but security updates reach you when Frostwolf rebuilds a new Firefox ESR (checked every day) and you install it. It doesn't update itself yet.
 
-- **Source code:** [codeberg.org/anyrustslop/frostwolf](https://codeberg.org/anyrustslop/frostwolf) (main repository)
-- **Downloads:** [GitHub releases](https://github.com/anyrustslop/frostwolf/releases) (built by GitHub Actions from the mirror at [github.com/anyrustslop/frostwolf](https://github.com/anyrustslop/frostwolf))
+<br>
 
-## What it is
-- **Firefox ESR** (the long-term-support Firefox that Tor Browser and Mullvad Browser are built on), compiled from Mozilla's official source tarball, verified against Mozilla's SHA-512 checksums.
-- **Rust:** everything Firefox has in Rust is built in, from the Stylo CSS engine and WebRender graphics to the media parsers, text encoding and URL parsing. The rest of Firefox (JavaScript engine, DOM, networking, UI) is C++ and JavaScript, as in every Firefox build. For an all-Rust browser, see RustWolf.
-- **Look:** an ice-blue wolf logo and a dark ice-blue built-in theme (switch it in Add-ons and themes).
+<img src="assets/section-why-privacy.png" alt="Why privacy matters" width="100%">
 
-## Privacy and security settings
-Applied with Firefox's own configuration system (`frostwolf.cfg`, `policies.json`), so you can review every one of them in [build/settings](build/settings):
-- **No telemetry, studies, sponsored content or Pocket**, and no crash reporter or Mozilla updater compiled in.
-- **uBlock Origin** is installed on first start.
-- **Tracking protection** on "Strict", Total Cookie Protection, tracking parameters stripped from links, Global Privacy Control.
-- **Fingerprinting resistance** (Firefox's `resistFingerprinting`, as in Tor Browser and Mullvad Browser), letterboxing, WebGL off, no local IP leaks over WebRTC.
-- **Forgets cookies, site data, cache and history when you close it** (like LibreWolf; change it in Settings > Privacy).
-- **HTTPS-only mode**, no DNS / link prefetching or speculative connections, CRLite certificate revocation instead of OCSP pings, punycode shown for look-alike domains, no scripts in PDFs.
-- **Search:** DuckDuckGo by default; Brave Search, Mojeek and Qwant added; Google, Bing, Amazon and eBay removed.
-- **DRM is off** (Netflix, Spotify Web, ...). Turn it on in Settings > General > "Play DRM-controlled content".
+Your browser sees more of your life than almost anything else you use: what you read, what worries you, your health questions, your money, your politics, who you talk to, where you are. On the normal web, much of that is quietly collected.
 
-## Download
-Get `Frostwolf-<version>-win64-setup.exe` (installs for your user, no admin rights) or the portable zip from the [releases](https://github.com/anyrustslop/frostwolf/releases). Windows SmartScreen may warn because the files aren't code-signed: click **More info > Run anyway**. Each release has `SHA256SUMS.txt` and signed build provenance (`gh attestation verify <file> --repo anyrustslop/frostwolf`).
+- **You are the product.** Trackers embedded in most websites follow you from site to site and build a profile that data brokers buy and sell: interests, habits, income bracket, health conditions, even guesses about your mood.
+- **Profiles are used against you.** They decide which ads, prices, news and job offers you see, and they can be leaked, hacked, subpoenaed or sold on, long after you've forgotten the search that created them.
+- **"Nothing to hide" isn't the point.** Privacy is what lets you look things up, change your mind and be yourself without being judged, scored or manipulated. When people know they're watched, they hold back.
+- **It protects your security too.** Less data collected means less to steal, fewer ways to impersonate you, and fewer scams aimed precisely at you.
+- **It's a right.** Privacy is recognised as a fundamental right (Article 12 of the Universal Declaration of Human Rights, Articles 7 and 8 of the EU Charter of Fundamental Rights). Your browser should respect it by default, not hide it in a settings menu.
 
-## How it's built
-[`.github/workflows/build.yml`](.github/workflows/build.yml) on Ubuntu, cross-compiling for Windows x64 the way Mozilla's own CI does:
-1. [`build/fetch_source.py`](build/fetch_source.py) downloads `firefox-<ESR>.source.tar.xz` from archive.mozilla.org and checks its SHA-512.
-2. [`build/branding/apply_branding.py`](build/branding/apply_branding.py) creates the Frostwolf branding (logo generated from [`logo.py`](build/branding/logo.py) at every size Firefox needs).
-3. `./mach build` with [`build/mozconfig`](build/mozconfig); toolchains (clang, Rust, Windows SDK) come from Mozilla's bootstrap.
-4. [`build/package.py`](build/package.py) adds the settings, policies and theme; [`build/installer.nsi`](build/installer.nsi) makes the installer.
+Frostwolf's answer: collect nothing, block the trackers, look like everyone else, and forget everything when you close it.
 
-A daily run checks for a new Firefox ESR and publishes a new Frostwolf when there is one.
+<br>
 
-## License
-MPL-2.0, like Firefox. Firefox is a trademark of the Mozilla Foundation; Frostwolf is not affiliated with or endorsed by Mozilla.
+<img src="assets/section-features.png" alt="What's inside" width="100%">
+
+| | |
+|---|---|
+| 🦊 **Real Firefox** | **Firefox ESR**, the long-term-support Firefox that Tor Browser and Mullvad Browser are also built on, compiled from Mozilla's source tarball and verified against Mozilla's SHA-512 checksums. Every site that works in Firefox works here. |
+| 🚫 **Nothing phones home** | No telemetry, studies, crash reports, sponsored content or Pocket, and no Mozilla updater or crash reporter compiled in. |
+| 🛡️ **Trackers and ads blocked** | **uBlock Origin** installed on first start, tracking protection on *Strict*, Total Cookie Protection, tracking parameters stripped from links, Global Privacy Control. |
+| 👤 **You look like everyone else** | Firefox's *resist fingerprinting* mode (the same protection Tor Browser and Mullvad Browser use), letterboxing, WebGL off, no local IP leaks over WebRTC. |
+| 🧹 **Forgets you on close** | Cookies, site data, cache and history are wiped when you close Frostwolf (you can change that in Settings > Privacy). |
+| 🔒 **Safer connections** | HTTPS-only mode, no prefetching or speculative connections, CRLite certificate checks instead of per-site OCSP pings, punycode shown for look-alike domains, no scripts in PDFs. |
+| 🔎 **Private search** | DuckDuckGo by default, with Brave Search, Mojeek and Qwant. Google, Bing, Amazon and eBay are removed. |
+| ❄️ **Ice-blue look** | An original wolf logo and a dark ice-blue built-in theme. |
+| 🦀 **Rust inside** | Everything Firefox writes in Rust is built in: the Stylo CSS engine, WebRender graphics, media parsers, text encoding and more. (For a browser written entirely in Rust, see Frostwolf's sibling [RustWolf](https://github.com/anyrustslop/rustwolf).) |
+
+Every setting is plain text you can review: [`frostwolf.cfg`](build/settings/frostwolf.cfg) and [`policies.json`](build/settings/policies.json). DRM (Netflix, Spotify Web…) is off by default; turn it on in Settings > General > *Play DRM-controlled content*.
+
+<br>
+
+<img src="assets/section-download.png" alt="Download" width="100%">
+
+Get the latest version from the **[releases page](https://github.com/anyrustslop/frostwolf/releases/latest)**:
+
+| File | What it is |
+|---|---|
+| `Frostwolf-<version>-win64-setup.exe` | Installer for your Windows user (no admin rights needed). Adds Start menu and desktop shortcuts; uninstall from Settings > Apps. |
+| `Frostwolf-<version>-win64-portable.zip` | Portable: unzip anywhere and run `frostwolf.exe`. |
+| `SHA256SUMS.txt` | Checksums to verify your download. |
+
+The files aren't code-signed (that costs money every year), so Windows SmartScreen may warn you: click **More info > Run anyway**. To verify a download, compare `Get-FileHash <file>` with `SHA256SUMS.txt`, or check it was built by this repository's workflow with `gh attestation verify <file> --repo anyrustslop/frostwolf`.
+
+<br>
+
+<img src="assets/section-build.png" alt="How it's built" width="100%">
+
+Frostwolf is built entirely in the open by [GitHub Actions](.github/workflows/build.yml), the same way for every release:
+
+1. **Source:** [`fetch_source.py`](build/fetch_source.py) downloads Firefox ESR from `archive.mozilla.org` and refuses it unless its SHA-512 matches Mozilla's published checksum.
+2. **Branding:** [`apply_branding.py`](build/branding/apply_branding.py) turns Firefox's unofficial branding into Frostwolf's, with the logo generated in code ([`logo.py`](build/branding/logo.py)) at every size.
+3. **Compile:** `./mach build` with [`mozconfig`](build/mozconfig), cross-compiling for Windows x64 on Linux the way Mozilla's own build servers do.
+4. **Package:** [`package.py`](build/package.py) adds the settings, policies and theme; [`installer.nsi`](build/installer.nsi) makes the installer; checksums and signed build provenance are published with the release.
+
+Every day, the workflow checks for a new Firefox ESR and publishes a new Frostwolf when Mozilla ships security fixes.
+
+The source code lives on **[Codeberg](https://codeberg.org/anyrustslop/frostwolf)**, a non-profit, community-run home for free software. This GitHub repository is its mirror, used for the builds and downloads.
+
+<br>
+
+<img src="assets/section-librewolf.png" alt="Inspired by LibreWolf" width="100%">
+
+Frostwolf is inspired by **[LibreWolf](https://librewolf.net)**, the community project that showed a hardened, telemetry-free Firefox can be everyone's everyday browser. Its approach (Mozilla's source, privacy-first defaults, uBlock Origin built in, cookies forgotten on close) is the model Frostwolf follows, and many of Frostwolf's settings follow LibreWolf's choices. Thank you to the LibreWolf team and contributors. 🐺
+
+Where Frostwolf differs: it's built on **Firefox ESR** (like Tor Browser and Mullvad Browser) rather than the regular Firefox release, it ships its own ice-blue look and private search engines, and it's a much smaller, younger project. **If you want the mature, proven option, use LibreWolf.** Frostwolf is not affiliated with or endorsed by LibreWolf.
+
+<br>
+
+---
+
+<p align="center">
+  <img src="assets/logo.png" alt="" width="64"><br>
+  <sub>MPL-2.0, like Firefox. Firefox is a trademark of the Mozilla Foundation; Frostwolf is not affiliated with or endorsed by Mozilla.<br>
+  Sibling project: <a href="https://github.com/anyrustslop/rustwolf">RustWolf</a>, the all-Rust browser on the Servo engine.</sub>
+</p>
