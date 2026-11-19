@@ -7,27 +7,19 @@
   <link rel="stylesheet" href="welcome.css">
 </head>
 <body>
-  <header class="hero">
-    <img class="hero-logo" src="logo.png" alt="" width="200" height="200">
-    <div>
+  <main>
+    <!-- 0. Welcome -->
+    <section class="step welcome" id="welcome" data-title="Welcome">
+      <img class="hero-logo" src="logo.png" alt="" width="200" height="200">
       <p class="eyebrow">Welcome to</p>
       <h1>FrostWolf</h1>
-      <p class="lead">Firefox, hardened for privacy. You're already protected; this page shows what's set up
-        and a few trusted tools that make your privacy even stronger. Take your time: everything here is optional.</p>
-      <nav class="steps" aria-label="Sections">
-        <a href="#tor"><span>🧅</span> Tor</a>
-        <a href="#search"><span>1</span> Search</a>
-        <a href="#extensions"><span>2</span> Extensions</a>
-        <a href="#vpn"><span>3</span> VPN</a>
-        <a href="#tools"><span>4</span> More tools</a>
-        <a href="#protected"><span>5</span> You're protected</a>
-      </nav>
-    </div>
-  </header>
+      <p class="lead">Firefox, hardened for privacy. You're already protected. In a few short steps, here's what's
+        set up for you and some trusted tools that make your privacy even stronger. Everything is optional.</p>
+      <button class="btn big" data-go="next" type="button">Let's go →</button>
+    </section>
 
-  <main>
     <!-- Tor -->
-    <section id="tor" class="tor">
+    <section class="step tor" id="tor" data-title="Tor">
       <div class="tor-head">
         <img class="logo big" src="logos/tor.png" alt="" width="64" height="64">
         <div>
@@ -60,39 +52,39 @@
     </section>
 
     <!-- 1. Search -->
-    <section id="search">
-      <h2><span class="num">1</span> Your search engine</h2>
+    <section class="step" id="search" data-title="Search">
+      <h2>Your search engine</h2>
       <p class="intro">Your searches say a lot about you. FrostWolf searches with <b>DuckDuckGo, without AI</b> by default
-        and has removed Google, Bing, Amazon and eBay. These private search engines are already installed:</p>
+        and has removed Google, Bing, Amazon and eBay. These private search engines are already installed. <b>Click one to make it your default:</b></p>
       <div class="grid">
-        <article class="card selected">
+        <article class="card engine selected" data-engine="DuckDuckGo (no AI)" role="button" tabindex="0" aria-pressed="true">
           <div class="card-top"><img class="logo" src="logos/ddg.png" alt="" width="40" height="40"><h3>DuckDuckGo (no AI)</h3><span class="badge">Default</span></div>
           <p>No search history, no profile of you, and no AI: no AI answers, no Duck.ai, AI-generated images filtered out.</p>
           <p class="meta">Shortcut: just type in the address bar, or <kbd>@ddg</kbd></p>
         </article>
-        <article class="card">
+        <article class="card engine" data-engine="Brave Search" role="button" tabindex="0" aria-pressed="false">
           <div class="card-top"><img class="logo" src="logos/brave.png" alt="" width="40" height="40"><h3>Brave Search</h3></div>
           <p>Its own independent index (not Google or Bing), no tracking, no profiling.</p>
           <p class="meta">Shortcut: <kbd>@brave</kbd> your search</p>
         </article>
-        <article class="card">
+        <article class="card engine" data-engine="Mojeek" role="button" tabindex="0" aria-pressed="false">
           <div class="card-top"><img class="logo" src="logos/mojeek.png" alt="" width="40" height="40"><h3>Mojeek</h3></div>
           <p>A small UK engine with its own crawler and a strict no-tracking policy since 2004.</p>
           <p class="meta">Shortcut: <kbd>@mojeek</kbd> your search</p>
         </article>
-        <article class="card">
+        <article class="card engine" data-engine="Qwant" role="button" tabindex="0" aria-pressed="false">
           <div class="card-top"><img class="logo" src="logos/qwant.png" alt="" width="40" height="40"><h3>Qwant</h3></div>
           <p>A European search engine under EU privacy law; no ad profiling from your searches.</p>
           <p class="meta">Shortcut: <kbd>@qwant</kbd> your search</p>
         </article>
       </div>
-      <p class="howto"><b>Change your default:</b> menu <kbd>☰</kbd> › <b>Settings</b> › <b>Search</b> ›
-        <b>Default search engine</b>. Or type <kbd>@brave</kbd>, <kbd>@mojeek</kbd> or <kbd>@qwant</kbd> before a search to use one just once.</p>
+      <p class="howto" id="engine-status" role="status">You can change it later in menu <kbd>☰</kbd> › <b>Settings</b> › <b>Search</b>.
+        Or type <kbd>@brave</kbd>, <kbd>@mojeek</kbd> or <kbd>@qwant</kbd> before a search to use one just once.</p>
     </section>
 
     <!-- 2. Extensions -->
-    <section id="extensions">
-      <h2><span class="num">2</span> Recommended extensions</h2>
+    <section class="step" id="extensions" data-title="Extensions">
+      <h2>Recommended extensions</h2>
       <p class="intro">Fewer is better: every extension can see your browsing and makes your browser a little easier
         to recognise. FrostWolf already blocks ads, trackers and cookie banners, so you only need these if they fit what you do.</p>
       <div class="grid">
@@ -121,8 +113,8 @@
     </section>
 
     <!-- 3. VPN -->
-    <section id="vpn">
-      <h2><span class="num">3</span> Should you use a VPN?</h2>
+    <section class="step" id="vpn" data-title="Do you need a VPN?">
+      <h2>Do you need a VPN?</h2>
       <p class="intro">With Tor on, FrostWolf already hides your IP address from websites, so <b>you don't need a VPN
         for browsing in FrostWolf</b>. A VPN is still useful for the rest of your PC (other apps, games, downloads) and if
         you turn Tor off.</p>
@@ -144,7 +136,11 @@
           </ul>
         </div>
       </div>
-      <p class="intro">Reputable, independently audited no-log VPNs:</p>
+    </section>
+
+    <section class="step" id="vpns" data-title="Trusted VPNs">
+      <h2>Trusted VPNs</h2>
+      <p class="intro">If you want a VPN for the rest of your PC, these are reputable, independently audited and don't keep logs:</p>
       <div class="grid">
         <article class="card">
           <div class="card-top"><img class="logo" src="logos/mullvad.png" alt="" width="40" height="40"><h3>Mullvad VPN</h3><span class="badge">Most private</span></div>
@@ -166,8 +162,8 @@
     </section>
 
     <!-- 4. Tools -->
-    <section id="tools">
-      <h2><span class="num">4</span> More privacy tools</h2>
+    <section class="step" id="tools" data-title="More tools">
+      <h2>More privacy tools</h2>
       <div class="grid compact">
         <a class="tool" href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">
           <img class="logo" src="logos/tor.png" alt="" width="40" height="40"><h3>Tor Browser</h3><p>Anonymous browsing through three relays. For when you can't be identified.</p></a>
@@ -186,8 +182,8 @@
     </section>
 
     <!-- 5. Protected -->
-    <section id="protected">
-      <h2><span class="num">5</span> You're already protected</h2>
+    <section class="step" id="protected" data-title="You're protected">
+      <h2>You're already protected</h2>
       <div class="grid compact">
         <div class="feat"><h3>No telemetry</h3><p>FrostWolf sends nothing about you to anyone.</p></div>
         <div class="feat"><h3>Trackers blocked</h3><p>uBlock Origin, strict tracking protection and Total Cookie Protection.</p></div>
@@ -196,23 +192,33 @@
         <div class="feat"><h3>Scam protection</h3><p>FrostWolf Guard blocks "press Win+R and paste" ClickFix scams.</p></div>
         <div class="feat"><h3>IP address hidden</h3><p>Everything goes through Tor; DNS too. HTTPS-only connections.</p></div>
       </div>
+    </section>
+
+    <section class="step" id="tips" data-title="Good to know">
+      <h2>Good to know</h2>
       <div class="panel tips">
-        <h3>Good to know</h3>
         <ul class="plain">
           <li><b>Stay logged in after closing:</b> Settings › Privacy › uncheck <i>Delete cookies and site data when FrostWolf is closed</i> (or add exceptions for your favourite sites).</li>
           <li><b>Netflix, Spotify Web and other DRM:</b> Settings › General › <i>Play DRM-controlled content</i>.</li>
           <li><b>A site doesn't work?</b> Click the uBlock Origin icon and turn it off for that site, or click the shield in the address bar.</li>
           <li><b>Updates are automatic:</b> FrostWolf downloads new versions in the background (through Tor) and installs them when you close it. A bar tells you when one is ready.</li>
-          <li><b>See this page again:</b> menu › Add-ons and themes › FrostWolf Welcome › Options.</li>
+          <li><b>See this page again:</b> bookmark it now with <kbd>Ctrl</kbd>+<kbd>D</kbd>.</li>
         </ul>
       </div>
-      <p class="done">That's it. Enjoy the web, privately. 🐺</p>
+      <div class="finish">
+        <p class="done">That's it. Enjoy the web, privately. 🐺</p>
+        <a class="btn big" href="https://noai.duckduckgo.com/">Start browsing →</a>
+      </div>
     </section>
   </main>
 
-  <footer>
-    FrostWolf is open source: <a href="https://codeberg.org/anyrustslop/frostwolf" target="_blank" rel="noopener noreferrer">codeberg.org/anyrustslop/frostwolf</a>
-    · Inspired by <a href="https://librewolf.net/" target="_blank" rel="noopener noreferrer">LibreWolf</a>
-  </footer>
+  <nav class="wizard" aria-label="Steps">
+    <button class="btn ghost" id="back" type="button">← Back</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="next" type="button">Next →</button>
+  </nav>
+  <p class="credit">Open source on <a href="https://codeberg.org/anyrustslop/frostwolf" target="_blank" rel="noopener noreferrer">Codeberg</a>
+    · Inspired by <a href="https://librewolf.net/" target="_blank" rel="noopener noreferrer">LibreWolf</a></p>
+  <script src="welcome.js"></script>
 </body>
 </html>

@@ -7,6 +7,15 @@
     "DisableDefaultBrowserAgent": true,
     "DontCheckDefaultBrowser": true,
     "DisableSetDesktopBackground": true,
+    "EnableTrackingProtection": {
+      "Category": "strict",
+      "Value": true,
+      "Cryptomining": true,
+      "Fingerprinting": true,
+      "EmailTracking": true,
+      "SuspectedFingerprinting": true,
+      "Locked": false
+    },
     "OverrideFirstRunPage": "",
     "OverridePostUpdatePage": "",
     "NoDefaultBookmarks": true,

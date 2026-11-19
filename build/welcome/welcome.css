@@ -147,3 +147,54 @@ footer { padding: 8px 24px 48px; text-align: center; color: var(--muted); font-s
 .tor-head h2 { margin-top: 4px; }
 .logo.big { width: 64px; height: 64px; border-radius: 14px; }
 .steps a[href="#tor"] span { background: #b98cf0; }
+
+/* ------------------------------------------------ step-by-step guide */
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; }
+main { flex: 1; min-height: 0; width: 100%; padding-top: 28px; padding-bottom: 8px; display: flex; flex-direction: column; }
+.step { display: none; margin: 0; overflow-y: auto; max-height: 100%; }
+.step.active { display: block; animation: stepIn .28s ease-out; }
+@keyframes stepIn { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+
+.welcome.active { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 100%; }
+.welcome .hero-logo { width: 190px; height: 190px; filter: drop-shadow(0 0 40px rgba(94, 200, 255, 0.5)); margin-bottom: 8px; }
+.welcome h1 { font-size: 92px; }
+.welcome .lead { margin: 0 auto 28px; }
+.btn.big { margin-top: 0; padding: 14px 30px; font-size: 18px; border-radius: 12px; align-self: center; border: 0; cursor: pointer; font-family: inherit; }
+
+/* Step grids: everything on one screen where it fits. */
+#extensions .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+#vpn .grid, #search .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+.finish { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 18px; }
+.finish .done { margin: 0; }
+
+.wizard {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  width: 100%; max-width: 1080px; margin: 0 auto; padding: 14px 24px 6px;
+}
+.wizard .btn { margin: 0; min-width: 120px; border: 0; cursor: pointer; font-family: inherit; font-size: 15px; }
+.wizard .btn.ghost { border: 1px solid var(--line); }
+.dots { display: flex; gap: 10px; }
+.dot { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 0; background: var(--line); cursor: pointer; transition: transform .15s, background .15s; }
+.dot.past { background: var(--accent-2); }
+.dot.active { background: var(--accent); transform: scale(1.35); }
+.credit { flex: none; margin: 0; padding: 4px 24px 14px; text-align: center; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 760px) {
+  .welcome h1 { font-size: 56px; }
+  .welcome .hero-logo { width: 120px; height: 120px; }
+  .wizard .btn { min-width: 0; }
+}
+.dots { flex-wrap: nowrap; flex: none; }
+.dot { flex: none; }
+.card-top h3 { flex: 1 1 130px; overflow-wrap: anywhere; }
+
+/* Clickable search engines */
+.card.engine { cursor: pointer; transition: border-color .15s, background .15s, transform .1s; }
+.card.engine:hover { background: var(--card-hi); }
+.card.engine:active { transform: scale(0.99); }
+.card.engine:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card.engine .badge { display: none; }
+.card.engine.selected .badge { display: inline-block; }
+#engine-status.ok { color: var(--ok); font-weight: 600; }

@@ -47,20 +47,16 @@ def main():
     with zipfile.ZipFile(os.path.join(ext, "frostwolf-guard@frostwolf.xpi"), "w", zipfile.ZIP_DEFLATED) as x:
         for f in ("manifest.json", "detect.js", "guard.js"):
             x.write(os.path.join(HERE, "guard", f), f)
-    # FrostWolf Welcome (first-start guide), with the logo rendered for it.
+    # Welcome page: plain HTML in <app>/welcome/, opened once on first start (welcome.cfg.js).
     import io
-    png = io.BytesIO()
-    logo.render(264).save(png, format="PNG")
+    welcome = os.path.join(app, "welcome")
+    os.makedirs(welcome, exist_ok=True)
+    for f in ("welcome.html", "welcome.css", "welcome.js"):
+        shutil.copy(os.path.join(HERE, "welcome", f), os.path.join(welcome, f))
+    logo.render(264).save(os.path.join(welcome, "logo.png"))
     sys.path.insert(0, os.path.join(HERE, "welcome"))
     import fetch_logos  # noqa: E402
-    logos_dir = os.path.join(out, "welcome-logos")
-    fetch_logos.main(logos_dir)
-    with zipfile.ZipFile(os.path.join(ext, "frostwolf-welcome@frostwolf.xpi"), "w", zipfile.ZIP_DEFLATED) as x:
-        for f in ("manifest.json", "background.js", "welcome.html", "welcome.css"):
-            x.write(os.path.join(HERE, "welcome", f), f)
-        x.writestr("logo.png", png.getvalue())
-        for f in sorted(os.listdir(logos_dir)):
-            x.write(os.path.join(logos_dir, f), "logos/" + f)
+    fetch_logos.main(os.path.join(welcome, "logos"))
 
     # FrostWolf logo at the top left of the window (added to frostwolf.cfg).
     import base64
@@ -74,6 +70,8 @@ def main():
         f.write(open(os.path.join(s, "tor.cfg.js"), encoding="utf8").read())
         # Automatic updates (frostwolf-updater.exe, built from build/updater).
         f.write(open(os.path.join(s, "updater.cfg.js"), encoding="utf8").read())
+        # Welcome page on first start.
+        f.write(open(os.path.join(s, "welcome.cfg.js"), encoding="utf8").read())
     with open(os.path.join(app, "frostwolf-version.txt"), "w") as f:
         f.write(version)
     updater = os.environ.get("FROSTWOLF_UPDATER_EXE")
