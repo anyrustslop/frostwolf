@@ -43,10 +43,29 @@ FrostWolf's answer: collect nothing, block the trackers, look like everyone else
 | 🧹 **Forgets you on close** | Cookies, site data, cache and history are wiped when you close FrostWolf (you can change that in Settings > Privacy). |
 | 🔒 **Safer connections** | HTTPS-only mode, no prefetching or speculative connections, CRLite certificate checks instead of per-site OCSP pings, punycode shown for look-alike domains, no scripts in PDFs. |
 | 🔎 **Private search** | DuckDuckGo by default, with Brave Search, Mojeek and Qwant. Google, Bing, Amazon and eBay are removed. |
+| 🧊 **Hardened engine** | The JavaScript engine's optimizing JIT and regular-expression JIT are off (they're where most browser exploits strike), as are WebGPU and SVG-in-font parsing. Every site runs in its own process, and web pages can't make Windows graphics-kernel (win32k) calls. |
+| 🪤 **Anti-ClickFix Guard** | A built-in add-on checks everything a site tries to put in your clipboard. Fake-CAPTCHA "press Win+R and paste" commands are blocked, obfuscated ones too (`p^ower^shell`…), with a warning that explains the scam. Your own copying is never touched. |
+| 🎣 **Anti-phishing** | Full addresses always shown (no hidden `https://` or `www`), Windows link types that scams abuse (`search-ms:`, `ms-msdt:`…) blocked, uBlock Origin's malware, badware and URLhaus lists on. |
+| 🌐 **Encrypted DNS** | DNS over HTTPS through **Quad9** (non-profit, Swiss, blocks known malware domains), plus Encrypted Client Hello where sites support it, so your network sees much less of where you go. |
+| 🧩 **Locked-down add-ons** | Only signed add-ons can be installed, and add-ons slipped in by other programs on your PC stay disabled. |
+| 💾 **Leaves less on your PC** | Memory-only cache, no form history, no form data or cookies in session-restore files, passwords filled only when you click. |
+| 🔕 **Quiet by default** | Notification prompts blocked, no autoplaying sound or video, no push-service connection, no tracking beacons, no motion sensors, gamepads or VR APIs. |
 | ❄️ **Ice-blue look** | An original wolf logo and a dark ice-blue built-in theme. |
 | 🦀 **Rust inside** | Firefox's Rust components are where much of its speed and safety comes from: **Stylo** styles pages on all your CPU cores in parallel, **WebRender** draws them on your GPU, and Rust's memory safety protects the media parsers, text encoding and URL parsing that handle untrusted data from the web. FrostWolf builds all of them in. (Most of Firefox is still C++; for a browser written entirely in Rust, see FrostWolf's sibling [RustWolf](https://github.com/anyrustslop/rustwolf).) |
 
-Every setting is plain text you can review: [`frostwolf.cfg`](build/settings/frostwolf.cfg) and [`policies.json`](build/settings/policies.json). DRM (Netflix, Spotify Web…) is off by default; turn it on in Settings > General > *Play DRM-controlled content*.
+### Further than LibreWolf, still made for every day
+
+FrostWolf starts from LibreWolf-style defaults and adds the hardening above on top. Everything was chosen to stay out of your way in normal browsing; the one trade-off is speed in **very heavy web apps** (online editors, 3D, big spreadsheets), which run a little slower without the optimizing JIT. If one feels slow, you can undo any setting in `about:config`:
+
+| If you want… | Set in `about:config` |
+|---|---|
+| Full JavaScript speed (heavy web apps) | `javascript.options.ion` → `true` |
+| Notifications from a site | allow it in the site's padlock menu |
+| Videos that start by themselves | `media.autoplay.default` → `0` |
+| To keep cookies and logins after closing | Settings > Privacy > uncheck *Delete cookies and site data when FrostWolf is closed* |
+| Netflix, Spotify Web and other DRM | Settings > General > *Play DRM-controlled content* |
+
+Every setting is plain text you can review: [`frostwolf.cfg`](build/settings/frostwolf.cfg), [`policies.json`](build/settings/policies.json) and the [Guard add-on](build/guard).
 
 <br>
 

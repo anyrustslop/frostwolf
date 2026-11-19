@@ -43,6 +43,10 @@ def main():
     os.makedirs(ext, exist_ok=True)
     with zipfile.ZipFile(os.path.join(ext, "frostwolf-ice@frostwolf.xpi"), "w", zipfile.ZIP_DEFLATED) as x:
         x.write(os.path.join(HERE, "theme", "manifest.json"), "manifest.json")
+    # FrostWolf Guard (anti-ClickFix).
+    with zipfile.ZipFile(os.path.join(ext, "frostwolf-guard@frostwolf.xpi"), "w", zipfile.ZIP_DEFLATED) as x:
+        for f in ("manifest.json", "detect.js", "guard.js"):
+            x.write(os.path.join(HERE, "guard", f), f)
 
     logo.render(256).save(os.path.join(out, "frostwolf.ico"),
                           sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])

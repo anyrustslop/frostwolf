@@ -54,6 +54,14 @@ jobs:
           echo "skip=$skip" >> "$GITHUB_OUTPUT"
           echo "Firefox $esr -> FrostWolf $ver (skip: $skip)"
 
+      - name: Test FrostWolf Guard and settings
+        if: steps.v.outputs.skip != 'true'
+        run: |
+          node build/guard/test_detect.js
+          for f in build/settings/policies.json build/theme/manifest.json build/guard/manifest.json; do
+            python3 -m json.tool "$f" > /dev/null && echo "valid: $f"
+          done
+
       - name: Tools
         if: steps.v.outputs.skip != 'true'
         timeout-minutes: 20

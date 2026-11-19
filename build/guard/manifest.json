@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "FrostWolf Guard",
+  "description": "Built into FrostWolf: stops 'ClickFix' scams by blocking pages from putting commands (PowerShell, cmd, mshta...) in your clipboard.",
+  "version": "1.0",
+  "browser_specific_settings": { "gecko": { "id": "frostwolf-guard@frostwolf" } },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["detect.js", "guard.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ]
+}
