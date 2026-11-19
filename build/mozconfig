@@ -24,10 +24,8 @@ ac_add_options --with-distribution-id=io.github.anyrustslop.frostwolf
 ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
 ac_add_options --disable-default-browser-agent
-export MOZ_TELEMETRY_REPORTING=
-export MOZ_DATA_REPORTING=
-export MOZ_CRASHREPORTER=
-export MOZ_SERVICES_HEALTHREPORT=
+# (Telemetry / data reporting are only compiled in for Mozilla's official builds; Frostwolf
+# also locks them off in frostwolf.cfg.)
 
 # Frostwolf's own (unsigned) built-in theme lives in the application folder.
 ac_add_options --with-unsigned-addon-scopes=app,system
