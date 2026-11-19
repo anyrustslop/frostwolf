@@ -21,7 +21,6 @@ echo "::endgroup::"
 
 cd "$SRC"
 export MOZBUILD_STATE_PATH="${MOZBUILD_STATE_PATH:-$HOME/.mozbuild}"
-export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 
 echo "::group::Toolchains (mach bootstrap)"
 ./mach --no-interactive bootstrap --application-choice browser
