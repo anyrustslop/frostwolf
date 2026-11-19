@@ -34,7 +34,7 @@ Frostwolf's answer: collect nothing, block the trackers, look like everyone else
 
 <img src="assets/section-features.png" alt="What's inside" width="100%">
 
-| | |
+| Feature | What it means for you |
 |---|---|
 | 🦊 **Real Firefox** | **Firefox ESR**, the long-term-support Firefox that Tor Browser and Mullvad Browser are also built on, compiled from Mozilla's source tarball and verified against Mozilla's SHA-512 checksums. Every site that works in Firefox works here. |
 | 🚫 **Nothing phones home** | No telemetry, studies, crash reports, sponsored content or Pocket, and no Mozilla updater or crash reporter compiled in. |
