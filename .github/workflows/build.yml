@@ -10,6 +10,8 @@ on:
   push:
     tags: ["v*"]
     branches: [main]
+    # Text and image changes don't need a 80-minute test build.
+    paths-ignore: ["**.md", "assets/**", "build/branding/banner.py", "LICENSE"]
   schedule:
     - cron: "0 6 * * *"
   workflow_dispatch:
@@ -19,9 +21,11 @@ permissions:
   id-token: write
   attestations: write
 
+# One queue per branch / tag: a release build can never be cancelled by a test build. A newer
+# push to main replaces an older, still-running test build.
 concurrency:
-  group: build
-  cancel-in-progress: false
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref == 'refs/heads/main' }}
 
 jobs:
   build:

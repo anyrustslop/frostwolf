@@ -44,7 +44,7 @@ Frostwolf's answer: collect nothing, block the trackers, look like everyone else
 | 🔒 **Safer connections** | HTTPS-only mode, no prefetching or speculative connections, CRLite certificate checks instead of per-site OCSP pings, punycode shown for look-alike domains, no scripts in PDFs. |
 | 🔎 **Private search** | DuckDuckGo by default, with Brave Search, Mojeek and Qwant. Google, Bing, Amazon and eBay are removed. |
 | ❄️ **Ice-blue look** | An original wolf logo and a dark ice-blue built-in theme. |
-| 🦀 **Rust inside** | Everything Firefox writes in Rust is built in: the Stylo CSS engine, WebRender graphics, media parsers, text encoding and more. (For a browser written entirely in Rust, see Frostwolf's sibling [RustWolf](https://github.com/anyrustslop/rustwolf).) |
+| 🦀 **Rust inside** | Firefox's Rust components are where much of its speed and safety comes from: **Stylo** styles pages on all your CPU cores in parallel, **WebRender** draws them on your GPU, and Rust's memory safety protects the media parsers, text encoding and URL parsing that handle untrusted data from the web. Frostwolf builds all of them in. (Most of Firefox is still C++; for a browser written entirely in Rust, see Frostwolf's sibling [RustWolf](https://github.com/anyrustslop/rustwolf).) |
 
 Every setting is plain text you can review: [`frostwolf.cfg`](build/settings/frostwolf.cfg) and [`policies.json`](build/settings/policies.json). DRM (Netflix, Spotify Web…) is off by default; turn it on in Settings > General > *Play DRM-controlled content*.
 
