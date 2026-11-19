@@ -1,5 +1,5 @@
 > [!WARNING]
-> FrostWolf is a new, unofficial Firefox build by a small project. Security fixes reach you when Mozilla releases a new Firefox ESR or the Tor Project releases a new Tor, and FrostWolf rebuilds (checked daily). FrostWolf doesn't update itself yet: download each new release.
+> FrostWolf is a new, unofficial Firefox build by a small project. Security fixes reach you when Mozilla releases a new Firefox ESR or the Tor Project releases a new Tor, and FrostWolf rebuilds (checked daily). FrostWolf 153.7.0-7 and later update themselves: install once, and new versions are downloaded, verified and installed automatically.
 
 **FrostWolf VERSION** is **Firefox FIREFOXESR** with **Tor TORVERSION** built in, compiled from Mozilla's source, rebranded with an ice-blue theme and hardened for privacy.
 

@@ -62,7 +62,7 @@ jobs:
           # only the portable zip is published.
           for i in 1 2 3; do
             if timeout 300 sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 update -q &&
-               timeout 300 sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 install -y -q --no-install-recommends nsis msitools wine64; then
+               timeout 300 sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 install -y -q --no-install-recommends nsis msitools wine64 gcc-mingw-w64-x86-64; then
               break
             fi
             echo "apt attempt $i failed"; sleep 20
@@ -109,10 +109,20 @@ jobs:
           fi
           exit "$rc"
 
+      - name: Build the updater (Rust)
+        if: steps.v.outputs.skip != 'true'
+        env:
+          CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER: x86_64-w64-mingw32-gcc
+        run: |
+          rustup target add x86_64-pc-windows-gnu
+          cargo build --release --locked --target x86_64-pc-windows-gnu --manifest-path build/updater/Cargo.toml
+          ls -la build/updater/target/x86_64-pc-windows-gnu/release/frostwolf-updater.exe
+
       - name: Package (portable zip + installer)
         if: steps.v.outputs.skip != 'true'
         env:
           FROSTWOLF_TOR_VERSION: ${{ steps.v.outputs.tor }}
+          FROSTWOLF_UPDATER_EXE: build/updater/target/x86_64-pc-windows-gnu/release/frostwolf-updater.exe
         run: |
           pkg=$(ls /mnt/work/firefox-src/obj/dist/*.win64.zip | head -1)
           python3 build/package.py "$pkg" "${{ steps.v.outputs.version }}" dist

@@ -72,6 +72,16 @@ def main():
         f.write(snippet)
         # Tor, on by default (tor/tor/tor.exe + tor/data/geoip*, verified by fetch_tor.py).
         f.write(open(os.path.join(s, "tor.cfg.js"), encoding="utf8").read())
+        # Automatic updates (frostwolf-updater.exe, built from build/updater).
+        f.write(open(os.path.join(s, "updater.cfg.js"), encoding="utf8").read())
+    with open(os.path.join(app, "frostwolf-version.txt"), "w") as f:
+        f.write(version)
+    updater = os.environ.get("FROSTWOLF_UPDATER_EXE")
+    if updater and os.path.exists(updater):
+        shutil.copy(updater, os.path.join(app, "frostwolf-updater.exe"))
+        print("updater included")
+    else:
+        print("WARNING: frostwolf-updater.exe not built; this package won't update itself")
     sys.path.insert(0, os.path.join(HERE, "tor"))
     import fetch_tor  # noqa: E402
     tor_version = fetch_tor.main(os.path.join(app, "tor"))

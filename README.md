@@ -14,7 +14,7 @@
 </p>
 
 > [!WARNING]
-> FrostWolf is a young, independent project. With Tor on (the default) your IP address is hidden, but FrostWolf is not Tor Browser: if your safety depends on anonymity, use [Tor Browser](https://www.torproject.org). It's Firefox underneath, so sites work like in Firefox, but security updates reach you when FrostWolf rebuilds a new Firefox ESR or Tor (checked every day) and you install it. It doesn't update itself yet.
+> FrostWolf is a young, independent project. With Tor on (the default) your IP address is hidden, but FrostWolf is not Tor Browser: if your safety depends on anonymity, use [Tor Browser](https://www.torproject.org). It's Firefox underneath, so sites work like in Firefox, and it updates itself: when Mozilla or the Tor Project ship security fixes, FrostWolf rebuilds (checked every day) and your FrostWolf downloads and installs the new version on its own.
 
 <br>
 
@@ -37,6 +37,7 @@ FrostWolf's answer: collect nothing, block the trackers, look like everyone else
 | Feature | What it means for you |
 |---|---|
 | 🦊 **Real Firefox** | **Firefox ESR**, the long-term-support Firefox that Tor Browser and Mullvad Browser are also built on, compiled from Mozilla's source tarball and verified against Mozilla's SHA-512 checksums. Every site that works in Firefox works here. |
+| 🔄 **Updates itself** | A small updater written in **Rust** checks for a new FrostWolf a minute after start (through Tor), downloads it in the background, refuses it unless its SHA-256 matches the release's checksums, and installs it when you close FrostWolf, keeping the old version until the new one is in place. A bar tells you when an update is ready, with a *Restart now* button. Turn it off with `frostwolf.update.enabled`. You never need to download FrostWolf again. |
 | 🧅 **Tor built in, on by default** | FrostWolf ships the official **Tor** (verified at build time against the Tor Project's checksums and signing key) and starts it with the browser. Every connection, DNS included, goes through the Tor network, so **websites can't see your IP address or location**, and your internet provider can't see which sites you visit. Each website gets its own Tor route; WebRTC can't leak your real IP. Tor stops when you close FrostWolf. Turn it off with `frostwolf.tor.enabled` in `about:config`. |
 | 🚫 **Nothing phones home** | No telemetry, studies, crash reports, sponsored content or Pocket, and no Mozilla updater or crash reporter compiled in. |
 | 🛡️ **Trackers and ads blocked** | **uBlock Origin** installed on first start, tracking protection on *Strict*, Total Cookie Protection, tracking parameters stripped from links, Global Privacy Control. |
