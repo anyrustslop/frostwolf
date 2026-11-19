@@ -47,6 +47,29 @@ def main():
     with zipfile.ZipFile(os.path.join(ext, "frostwolf-guard@frostwolf.xpi"), "w", zipfile.ZIP_DEFLATED) as x:
         for f in ("manifest.json", "detect.js", "guard.js"):
             x.write(os.path.join(HERE, "guard", f), f)
+    # FrostWolf Welcome (first-start guide), with the logo rendered for it.
+    import io
+    png = io.BytesIO()
+    logo.render(264).save(png, format="PNG")
+    sys.path.insert(0, os.path.join(HERE, "welcome"))
+    import fetch_logos  # noqa: E402
+    logos_dir = os.path.join(out, "welcome-logos")
+    fetch_logos.main(logos_dir)
+    with zipfile.ZipFile(os.path.join(ext, "frostwolf-welcome@frostwolf.xpi"), "w", zipfile.ZIP_DEFLATED) as x:
+        for f in ("manifest.json", "background.js", "welcome.html", "welcome.css"):
+            x.write(os.path.join(HERE, "welcome", f), f)
+        x.writestr("logo.png", png.getvalue())
+        for f in sorted(os.listdir(logos_dir)):
+            x.write(os.path.join(logos_dir, f), "logos/" + f)
+
+    # FrostWolf logo at the top left of the window (added to frostwolf.cfg).
+    import base64
+    small = io.BytesIO()
+    logo.render(64).save(small, format="PNG")
+    snippet = open(os.path.join(s, "ui-logo.cfg.js"), encoding="utf8").read()
+    snippet = snippet.replace("@FROSTWOLF_LOGO_PNG@", base64.b64encode(small.getvalue()).decode())
+    with open(os.path.join(app, "frostwolf.cfg"), "a", encoding="utf8") as f:
+        f.write(snippet)
 
     logo.render(256).save(os.path.join(out, "frostwolf.ico"),
                           sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])

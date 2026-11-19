@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "FrostWolf Welcome",
+  "description": "FrostWolf's welcome page: search engines, recommended privacy extensions, VPNs and tools. Opens on first start; reopen it from its Options.",
+  "version": "1.0",
+  "browser_specific_settings": { "gecko": { "id": "frostwolf-welcome@frostwolf" } },
+  "icons": { "48": "logo.png", "96": "logo.png" },
+  "background": { "scripts": ["background.js"] },
+  "options_ui": { "page": "welcome.html", "open_in_tab": true }
+}

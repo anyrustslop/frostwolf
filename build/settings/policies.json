@@ -36,9 +36,17 @@
       "Locked": true
     },
     "SearchEngines": {
-      "Default": "DuckDuckGo",
-      "Remove": ["Google", "Bing", "Amazon.com", "eBay", "Perplexity"],
+      "Default": "DuckDuckGo (no AI)",
+      "Remove": ["Google", "Bing", "Amazon.com", "eBay", "Perplexity", "DuckDuckGo"],
       "Add": [
+        {
+          "Name": "DuckDuckGo (no AI)",
+          "URLTemplate": "https://noai.duckduckgo.com/?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://duckduckgo.com/favicon.ico",
+          "Alias": "@ddg",
+          "Description": "DuckDuckGo with all AI features off and AI-generated images filtered out"
+        },
         {
           "Name": "Brave Search",
           "URLTemplate": "https://search.brave.com/search?q={searchTerms}",

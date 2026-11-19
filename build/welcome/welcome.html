@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to FrostWolf</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <header class="hero">
+    <img class="hero-logo" src="logo.png" alt="" width="200" height="200">
+    <div>
+      <p class="eyebrow">Welcome to</p>
+      <h1>FrostWolf</h1>
+      <p class="lead">Firefox, hardened for privacy. You're already protected; this page shows what's set up
+        and a few trusted tools that make your privacy even stronger. Take your time: everything here is optional.</p>
+      <nav class="steps" aria-label="Sections">
+        <a href="#search"><span>1</span> Search</a>
+        <a href="#extensions"><span>2</span> Extensions</a>
+        <a href="#vpn"><span>3</span> VPN</a>
+        <a href="#tools"><span>4</span> More tools</a>
+        <a href="#protected"><span>5</span> You're protected</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Search -->
+    <section id="search">
+      <h2><span class="num">1</span> Your search engine</h2>
+      <p class="intro">Your searches say a lot about you. FrostWolf searches with <b>DuckDuckGo, without AI</b> by default
+        and has removed Google, Bing, Amazon and eBay. These private search engines are already installed:</p>
+      <div class="grid">
+        <article class="card selected">
+          <div class="card-top"><img class="logo" src="logos/ddg.png" alt="" width="40" height="40"><h3>DuckDuckGo (no AI)</h3><span class="badge">Default</span></div>
+          <p>No search history, no profile of you, and no AI: no AI answers, no Duck.ai, AI-generated images filtered out.</p>
+          <p class="meta">Shortcut: just type in the address bar, or <kbd>@ddg</kbd></p>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/brave.png" alt="" width="40" height="40"><h3>Brave Search</h3></div>
+          <p>Its own independent index (not Google or Bing), no tracking, no profiling.</p>
+          <p class="meta">Shortcut: <kbd>@brave</kbd> your search</p>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/mojeek.png" alt="" width="40" height="40"><h3>Mojeek</h3></div>
+          <p>A small UK engine with its own crawler and a strict no-tracking policy since 2004.</p>
+          <p class="meta">Shortcut: <kbd>@mojeek</kbd> your search</p>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/qwant.png" alt="" width="40" height="40"><h3>Qwant</h3></div>
+          <p>A European search engine under EU privacy law; no ad profiling from your searches.</p>
+          <p class="meta">Shortcut: <kbd>@qwant</kbd> your search</p>
+        </article>
+      </div>
+      <p class="howto"><b>Change your default:</b> menu <kbd>☰</kbd> › <b>Settings</b> › <b>Search</b> ›
+        <b>Default search engine</b>. Or type <kbd>@brave</kbd>, <kbd>@mojeek</kbd> or <kbd>@qwant</kbd> before a search to use one just once.</p>
+    </section>
+
+    <!-- 2. Extensions -->
+    <section id="extensions">
+      <h2><span class="num">2</span> Recommended extensions</h2>
+      <p class="intro">Fewer is better: every extension can see your browsing and makes your browser a little easier
+        to recognise. FrostWolf already blocks ads, trackers and cookie banners, so you only need these if they fit what you do.</p>
+      <div class="grid">
+        <article class="card installed">
+          <div class="card-top"><img class="logo" src="logos/ublock.png" alt="" width="40" height="40"><h3>uBlock Origin</h3><span class="badge ok">Installed</span></div>
+          <p>Blocks ads, trackers, malware and scam sites. Already installed with extra malware and privacy lists turned on.</p>
+          <a class="btn ghost" href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener noreferrer">About uBlock Origin</a>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/bitwarden.png" alt="" width="40" height="40"><h3>Bitwarden</h3><span class="badge">Passwords</span></div>
+          <p>Open-source, audited password manager. A unique strong password for every site is the single best thing you can do for your security.</p>
+          <a class="btn" href="https://addons.mozilla.org/firefox/addon/bitwarden-password-manager/" target="_blank" rel="noopener noreferrer">Add Bitwarden</a>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/containers.png" alt="" width="40" height="40"><h3>Multi-Account Containers</h3><span class="badge">Separation</span></div>
+          <p>By Mozilla. Keep shopping, work, banking and social media in separate colour-coded tabs that can't see each other's cookies.</p>
+          <a class="btn" href="https://addons.mozilla.org/firefox/addon/multi-account-containers/" target="_blank" rel="noopener noreferrer">Add Containers</a>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/noscript.png" alt="" width="40" height="40"><h3>NoScript</h3><span class="badge warn">Advanced</span></div>
+          <p>Blocks JavaScript until you allow a site. The strongest protection against web exploits, but many sites need a click to work.</p>
+          <a class="btn" href="https://addons.mozilla.org/firefox/addon/noscript/" target="_blank" rel="noopener noreferrer">Add NoScript</a>
+        </article>
+      </div>
+      <p class="howto">Only install extensions from <b>addons.mozilla.org</b>; FrostWolf blocks unsigned add-ons and ones slipped in by other programs.</p>
+    </section>
+
+    <!-- 3. VPN -->
+    <section id="vpn">
+      <h2><span class="num">3</span> Should you use a VPN?</h2>
+      <div class="split">
+        <div class="panel">
+          <h3>What a VPN does</h3>
+          <ul class="ticks">
+            <li>Hides your IP address (and so your rough location) from the websites you visit.</li>
+            <li>Hides which sites you visit from your internet provider and public Wi-Fi.</li>
+            <li>Lets you avoid local blocking and snooping on hotel, café and school networks.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>What it doesn't do</h3>
+          <ul class="crosses">
+            <li>It doesn't make you anonymous: logging in, cookies and fingerprints still identify you (FrostWolf handles those).</li>
+            <li>It moves trust from your provider to the VPN company, so pick one that's been independently audited.</li>
+            <li><b>Avoid free, unknown VPNs:</b> many sell your data, which defeats the point.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="intro">Reputable, independently audited no-log VPNs:</p>
+      <div class="grid">
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/mullvad.png" alt="" width="40" height="40"><h3>Mullvad VPN</h3><span class="badge">Most private</span></div>
+          <p>No email or account needed (just a number), pay with cash if you like, flat price. Made by the company behind Mullvad Browser.</p>
+          <a class="btn" href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">mullvad.net</a>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/protonvpn.png" alt="" width="40" height="40"><h3>Proton VPN</h3><span class="badge ok">Free plan</span></div>
+          <p>Swiss, open-source apps, audited no-logs policy, and a genuinely free plan without ads or data selling.</p>
+          <a class="btn" href="https://protonvpn.com/" target="_blank" rel="noopener noreferrer">protonvpn.com</a>
+        </article>
+        <article class="card">
+          <div class="card-top"><img class="logo" src="logos/ivpn.png" alt="" width="40" height="40"><h3>IVPN</h3></div>
+          <p>Small, transparent and privacy-focused, with anonymous accounts and regular public audits.</p>
+          <a class="btn" href="https://www.ivpn.net/" target="_blank" rel="noopener noreferrer">ivpn.net</a>
+        </article>
+      </div>
+      <p class="howto">Need real anonymity (journalism, activism, dangerous situations)? Use <b>Tor Browser</b> instead of a VPN.</p>
+    </section>
+
+    <!-- 4. Tools -->
+    <section id="tools">
+      <h2><span class="num">4</span> More privacy tools</h2>
+      <div class="grid compact">
+        <a class="tool" href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">
+          <img class="logo" src="logos/tor.png" alt="" width="40" height="40"><h3>Tor Browser</h3><p>Anonymous browsing through three relays. For when you can't be identified.</p></a>
+        <a class="tool" href="https://signal.org/" target="_blank" rel="noopener noreferrer">
+          <img class="logo" src="logos/signal.png" alt="" width="40" height="40"><h3>Signal</h3><p>End-to-end encrypted messages and calls, by a non-profit. Replaces SMS and WhatsApp.</p></a>
+        <a class="tool" href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">
+          <img class="logo" src="logos/protonmail.png" alt="" width="40" height="40"><h3>Proton Mail</h3><p>Encrypted email from Switzerland, with a free plan.</p></a>
+        <a class="tool" href="https://tuta.com/" target="_blank" rel="noopener noreferrer">
+          <img class="logo" src="logos/tuta.png" alt="" width="40" height="40"><h3>Tuta</h3><p>Encrypted email and calendar from Germany, with a free plan.</p></a>
+        <a class="tool" href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">
+          <img class="logo" src="logos/bitwarden-app.png" alt="" width="40" height="40"><h3>Bitwarden apps</h3><p>The same password manager on your phone and other computers.</p></a>
+        <a class="tool" href="https://www.privacyguides.org/" target="_blank" rel="noopener noreferrer">
+          <img class="logo" src="logos/privacyguides.png" alt="" width="40" height="40"><h3>Privacy Guides</h3><p>Independent, non-profit recommendations for every kind of privacy tool.</p></a>
+      </div>
+      <p class="fineprint">No affiliate links, no sponsorships: FrostWolf earns nothing from these recommendations.</p>
+    </section>
+
+    <!-- 5. Protected -->
+    <section id="protected">
+      <h2><span class="num">5</span> You're already protected</h2>
+      <div class="grid compact">
+        <div class="feat"><h3>No telemetry</h3><p>FrostWolf sends nothing about you to anyone.</p></div>
+        <div class="feat"><h3>Trackers blocked</h3><p>uBlock Origin, strict tracking protection and Total Cookie Protection.</p></div>
+        <div class="feat"><h3>Hard to fingerprint</h3><p>You look like every other FrostWolf, Tor Browser and Mullvad Browser user.</p></div>
+        <div class="feat"><h3>Forgets on close</h3><p>Cookies, history and cache are wiped when you close FrostWolf.</p></div>
+        <div class="feat"><h3>Scam protection</h3><p>FrostWolf Guard blocks "press Win+R and paste" ClickFix scams.</p></div>
+        <div class="feat"><h3>Encrypted DNS</h3><p>Quad9 with malware blocking; HTTPS-only connections.</p></div>
+      </div>
+      <div class="panel tips">
+        <h3>Good to know</h3>
+        <ul class="plain">
+          <li><b>Stay logged in after closing:</b> Settings › Privacy › uncheck <i>Delete cookies and site data when FrostWolf is closed</i> (or add exceptions for your favourite sites).</li>
+          <li><b>Netflix, Spotify Web and other DRM:</b> Settings › General › <i>Play DRM-controlled content</i>.</li>
+          <li><b>A site doesn't work?</b> Click the uBlock Origin icon and turn it off for that site, or click the shield in the address bar.</li>
+          <li><b>See this page again:</b> menu › Add-ons and themes › FrostWolf Welcome › Options.</li>
+        </ul>
+      </div>
+      <p class="done">That's it. Enjoy the web, privately. 🐺</p>
+    </section>
+  </main>
+
+  <footer>
+    FrostWolf is open source: <a href="https://codeberg.org/anyrustslop/frostwolf" target="_blank" rel="noopener noreferrer">codeberg.org/anyrustslop/frostwolf</a>
+    · Inspired by <a href="https://librewolf.net/" target="_blank" rel="noopener noreferrer">LibreWolf</a>
+  </footer>
+</body>
+</html>
