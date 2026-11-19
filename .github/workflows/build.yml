@@ -1,7 +1,7 @@
 # Builds Frostwolf (Firefox ESR, rebranded and hardened) for Windows x64 and publishes releases.
 # - tag vX:      build + release of the ESR version in FIREFOX_VERSION
 # - daily:       if Mozilla published a newer Firefox ESR (security updates), build + release it
-# - manual run:  build, upload as a workflow artifact (no release)
+# - push to main / manual run: test build, uploaded as a workflow artifact (no release)
 # Source code lives on Codeberg (https://codeberg.org/anyrustslop/frostwolf); this repository is
 # its mirror, used for builds and downloads.
 name: build
@@ -9,6 +9,7 @@ name: build
 on:
   push:
     tags: ["v*"]
+    branches: [main]
   schedule:
     - cron: "0 6 * * *"
   workflow_dispatch:
@@ -90,7 +91,7 @@ jobs:
             dist/SHA256SUMS.txt
 
       - name: Signed build provenance
-        if: steps.v.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
+        if: steps.v.outputs.skip != 'true' && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'schedule')
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: |
@@ -98,7 +99,7 @@ jobs:
             dist/Frostwolf-*.exe
 
       - name: Publish release
-        if: steps.v.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
+        if: steps.v.outputs.skip != 'true' && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'schedule')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
