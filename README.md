@@ -62,7 +62,7 @@ FrostWolf starts from LibreWolf-style defaults and adds the hardening above on t
 
 | If you want… | Set in `about:config` |
 |---|---|
-| To browse without Tor (faster; sites see your IP) | `frostwolf.tor.enabled` → `false`, then restart |
+| To browse without Tor (faster; sites see your IP) | Click the **onion button** left of the address bar → *Turn Tor off* (works right away). The same panel shows the IP address websites see and gets you a new Tor identity. |
 | Full JavaScript speed (heavy web apps) | `javascript.options.ion` → `true` |
 | Notifications from a site | allow it in the site's padlock menu |
 | Videos that start by themselves | `media.autoplay.default` → `0` |

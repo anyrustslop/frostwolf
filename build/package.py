@@ -72,6 +72,8 @@ def main():
         f.write(open(os.path.join(s, "updater.cfg.js"), encoding="utf8").read())
         # Welcome page on first start.
         f.write(open(os.path.join(s, "welcome.cfg.js"), encoding="utf8").read())
+        # New tab look: bigger logo and name, ice background.
+        f.write(open(os.path.join(s, "newtab.cfg.js"), encoding="utf8").read())
     with open(os.path.join(app, "frostwolf-version.txt"), "w") as f:
         f.write(version)
     updater = os.environ.get("FROSTWOLF_UPDATER_EXE")
