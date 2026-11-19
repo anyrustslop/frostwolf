@@ -1,0 +1,38 @@
+# Frostwolf build configuration: Firefox ESR for Windows x64, cross-compiled on Linux
+# (the way Mozilla's own CI builds Firefox for Windows). Toolchains (clang, Rust, the Windows
+# SDK, ...) are downloaded by Mozilla's bootstrap.
+
+ac_add_options --target=x86_64-pc-windows-msvc
+ac_add_options --enable-bootstrap
+ac_add_options --enable-application=browser
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj
+
+# Release build, optimized, no debug / tests.
+ac_add_options --enable-release
+ac_add_options --enable-optimize
+ac_add_options --disable-debug
+ac_add_options --disable-tests
+
+# Frostwolf identity.
+ac_add_options --with-app-name=frostwolf
+ac_add_options --with-app-basename=Frostwolf
+ac_add_options --with-branding=browser/branding/frostwolf
+ac_add_options --with-distribution-id=io.github.anyrustslop.frostwolf
+
+# Nothing phones home: no crash reporter, no Mozilla updater, no default-browser agent,
+# no telemetry or data reporting compiled in.
+ac_add_options --disable-crashreporter
+ac_add_options --disable-updater
+ac_add_options --disable-default-browser-agent
+export MOZ_TELEMETRY_REPORTING=
+export MOZ_DATA_REPORTING=
+export MOZ_CRASHREPORTER=
+export MOZ_SERVICES_HEALTHREPORT=
+
+# Frostwolf's own (unsigned) built-in theme lives in the application folder.
+ac_add_options --with-unsigned-addon-scopes=app,system
+ac_add_options --allow-addon-sideload
+export MOZ_REQUIRE_SIGNING=
+
+# Compiler cache shared between CI runs (C++ and Rust).
+ac_add_options --with-ccache=sccache

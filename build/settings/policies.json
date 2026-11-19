@@ -1,0 +1,72 @@
+{
+  "policies": {
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableFeedbackCommands": true,
+    "DisableDefaultBrowserAgent": true,
+    "DontCheckDefaultBrowser": true,
+    "DisableSetDesktopBackground": true,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "NoDefaultBookmarks": true,
+    "PasswordManagerEnabled": true,
+    "FirefoxHome": {
+      "SponsoredTopSites": false,
+      "SponsoredPocket": false,
+      "SponsoredStories": false,
+      "Pocket": false,
+      "Stories": false,
+      "Snippets": false,
+      "Locked": false
+    },
+    "FirefoxSuggest": {
+      "WebSuggestions": false,
+      "SponsoredSuggestions": false,
+      "ImproveSuggest": false,
+      "Locked": true
+    },
+    "UserMessaging": {
+      "ExtensionRecommendations": false,
+      "FeatureRecommendations": false,
+      "UrlbarInterventions": false,
+      "SkipOnboarding": true,
+      "MoreFromMozilla": false,
+      "FirefoxLabs": false,
+      "Locked": true
+    },
+    "SearchEngines": {
+      "Default": "DuckDuckGo",
+      "Remove": ["Google", "Bing", "Amazon.com", "eBay", "Perplexity"],
+      "Add": [
+        {
+          "Name": "Brave Search",
+          "URLTemplate": "https://search.brave.com/search?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://search.brave.com/favicon.ico",
+          "Alias": "@brave"
+        },
+        {
+          "Name": "Mojeek",
+          "URLTemplate": "https://www.mojeek.com/search?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://www.mojeek.com/favicon.ico",
+          "Alias": "@mojeek"
+        },
+        {
+          "Name": "Qwant",
+          "URLTemplate": "https://www.qwant.com/?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://www.qwant.com/favicon.ico",
+          "Alias": "@qwant"
+        }
+      ]
+    },
+    "ExtensionSettings": {
+      "uBlock0@raymondhill.net": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+      }
+    }
+  }
+}

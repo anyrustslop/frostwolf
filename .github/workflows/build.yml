@@ -1,0 +1,111 @@
+# Builds Frostwolf (Firefox ESR, rebranded and hardened) for Windows x64 and publishes releases.
+# - tag vX:      build + release of the ESR version in FIREFOX_VERSION
+# - daily:       if Mozilla published a newer Firefox ESR (security updates), build + release it
+# - manual run:  build, upload as a workflow artifact (no release)
+# Source code lives on Codeberg (https://codeberg.org/anyrustslop/frostwolf); this repository is
+# its mirror, used for builds and downloads.
+name: build
+
+on:
+  push:
+    tags: ["v*"]
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        id: v
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            esr=$(python3 build/fetch_source.py latest)
+          else
+            esr=$(cat FIREFOX_VERSION)
+          fi
+          ver="${esr%esr}-$(cat FROSTWOLF_REVISION)"
+          echo "esr=$esr" >> "$GITHUB_OUTPUT"
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
+          echo "tag=v$ver" >> "$GITHUB_OUTPUT"
+          skip=false
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://github.com/${{ github.repository }}/releases/tag/v$ver")
+            [ "$code" = "200" ] && skip=true
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+          echo "Firefox $esr -> Frostwolf $ver (skip: $skip)"
+
+      - name: Free disk space
+        if: steps.v.outputs.skip != 'true'
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup \
+            /opt/hostedtoolcache/CodeQL /usr/local/share/boost /usr/share/swift /usr/local/share/powershell
+          sudo docker image prune -af > /dev/null || true
+          df -h /
+
+      - name: Tools
+        if: steps.v.outputs.skip != 'true'
+        run: sudo apt-get update -q && sudo apt-get install -y -q python3-pil nsis
+
+      - name: Compiler cache
+        if: steps.v.outputs.skip != 'true'
+        uses: mozilla-actions/sccache-action@v0.0.9
+
+      - name: Build Firefox ${{ steps.v.outputs.esr }} as Frostwolf
+        if: steps.v.outputs.skip != 'true'
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+        run: bash build/build.sh "${{ steps.v.outputs.esr }}"
+
+      - name: Package (portable zip + installer)
+        if: steps.v.outputs.skip != 'true'
+        run: |
+          pkg=$(ls work/firefox-src/obj/dist/*.win64.zip | head -1)
+          python3 build/package.py "$pkg" "${{ steps.v.outputs.version }}" dist
+          makensis -V2 -DVERSION="${{ steps.v.outputs.version }}" -DSRC="$PWD/dist" build/installer.nsi
+          cd dist && sha256sum Frostwolf-*.zip Frostwolf-*.exe > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - name: Upload build
+        if: steps.v.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Frostwolf-${{ steps.v.outputs.version }}
+          path: |
+            dist/Frostwolf-*.zip
+            dist/Frostwolf-*.exe
+            dist/SHA256SUMS.txt
+
+      - name: Signed build provenance
+        if: steps.v.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            dist/Frostwolf-*.zip
+            dist/Frostwolf-*.exe
+
+      - name: Publish release
+        if: steps.v.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ steps.v.outputs.tag }}"; ver="${{ steps.v.outputs.version }}"
+          sed -e "s/VERSION/$ver/g" -e "s/FIREFOXESR/${{ steps.v.outputs.esr }}/g" -e "s/COMMIT/$GITHUB_SHA/g" \
+            .github/release-notes.md > notes.md
+          extra=()
+          if [ "${{ github.event_name }}" = "schedule" ]; then extra=(--target "$GITHUB_SHA"); fi
+          gh release create "$tag" dist/Frostwolf-*.exe dist/Frostwolf-*.zip dist/SHA256SUMS.txt \
+            --title "Frostwolf $ver" --notes-file notes.md "${extra[@]}"

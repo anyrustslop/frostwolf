@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "name": "Frostwolf Ice",
+  "description": "Frostwolf's built-in dark ice-blue theme.",
+  "version": "1.0",
+  "browser_specific_settings": { "gecko": { "id": "frostwolf-ice@frostwolf" } },
+  "theme": {
+    "colors": {
+      "frame": "#0b1220",
+      "frame_inactive": "#0d1626",
+      "tab_background_text": "#b9dcff",
+      "tab_selected": "#13233a",
+      "tab_text": "#e6f4ff",
+      "tab_line": "#5ec8ff",
+      "tab_loading": "#5ec8ff",
+      "toolbar": "#13233a",
+      "toolbar_text": "#e6f4ff",
+      "toolbar_field": "#0b1626",
+      "toolbar_field_text": "#e6f4ff",
+      "toolbar_field_border": "#1e3a5c",
+      "toolbar_field_border_focus": "#5ec8ff",
+      "toolbar_field_focus": "#0e1c30",
+      "toolbar_field_highlight": "#2b6cb0",
+      "toolbar_field_highlight_text": "#ffffff",
+      "toolbar_top_separator": "#0b1220",
+      "toolbar_bottom_separator": "#1e3a5c",
+      "toolbar_vertical_separator": "#1e3a5c",
+      "icons": "#9fd8ff",
+      "icons_attention": "#5ec8ff",
+      "button_background_hover": "#1a3150",
+      "button_background_active": "#1e3a5c",
+      "popup": "#13233a",
+      "popup_text": "#e6f4ff",
+      "popup_border": "#1e3a5c",
+      "popup_highlight": "#1e3a5c",
+      "popup_highlight_text": "#ffffff",
+      "sidebar": "#0f1b2d",
+      "sidebar_text": "#e6f4ff",
+      "sidebar_border": "#1e3a5c",
+      "sidebar_highlight": "#1e3a5c",
+      "sidebar_highlight_text": "#ffffff",
+      "ntp_background": "#0b1220",
+      "ntp_card_background": "#13233a",
+      "ntp_text": "#e6f4ff",
+      "frame_inactive_text": "#8fb5d9"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}
