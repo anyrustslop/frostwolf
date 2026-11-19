@@ -17,6 +17,10 @@ echo "::endgroup::"
 echo "::group::FrostWolf branding"
 python3 "$HERE/branding/apply_branding.py" "$SRC"
 cp "$HERE/mozconfig" "$SRC/mozconfig"
+# Vendor: FrostWolf instead of Mozilla (shown in the exe's properties; profiles are kept in
+# %APPDATA%\FrostWolf instead of %APPDATA%\Mozilla).
+grep -q 'imply_option("MOZ_APP_VENDOR", "Mozilla")' "$SRC/browser/moz.configure"
+sed -i 's/imply_option("MOZ_APP_VENDOR", "Mozilla")/imply_option("MOZ_APP_VENDOR", "FrostWolf")/' "$SRC/browser/moz.configure"
 echo "::endgroup::"
 
 cd "$SRC"
