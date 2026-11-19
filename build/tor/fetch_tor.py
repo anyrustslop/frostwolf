@@ -74,7 +74,8 @@ def verify_signature(data, sig):
 
 
 def main(out):
-    v = latest_version()
+    # The workflow decides the Tor version first (and names it in the release notes); use exactly that one.
+    v = os.environ.get("FROSTWOLF_TOR_VERSION") or latest_version()
     name = f"tor-expert-bundle-windows-x86_64-{v}.tar.gz"
     data = get(DIST + f"{v}/{name}", timeout=600)
     sums = get(DIST + f"{v}/sha256sums-unsigned-build.txt").decode()
@@ -106,4 +107,7 @@ def main(out):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    if sys.argv[1] == "latest":
+        print(latest_version())
+    else:
+        main(sys.argv[1])

@@ -76,6 +76,8 @@ def main():
     import fetch_tor  # noqa: E402
     tor_version = fetch_tor.main(os.path.join(app, "tor"))
     print(f"Tor {tor_version} included")
+    with open(os.path.join(out, "TOR_VERSION"), "w") as f:
+        f.write(tor_version)
 
     logo.render(256).save(os.path.join(out, "frostwolf.ico"),
                           sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])

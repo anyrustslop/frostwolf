@@ -14,7 +14,7 @@
 </p>
 
 > [!WARNING]
-> FrostWolf is a young, independent project. With Tor on (the default) your IP address is hidden, but FrostWolf is not Tor Browser: if your safety depends on anonymity, use [Tor Browser](https://www.torproject.org). It's Firefox underneath, so sites work like in Firefox, but security updates reach you when FrostWolf rebuilds a new Firefox ESR (checked every day) and you install it. It doesn't update itself yet.
+> FrostWolf is a young, independent project. With Tor on (the default) your IP address is hidden, but FrostWolf is not Tor Browser: if your safety depends on anonymity, use [Tor Browser](https://www.torproject.org). It's Firefox underneath, so sites work like in Firefox, but security updates reach you when FrostWolf rebuilds a new Firefox ESR or Tor (checked every day) and you install it. It doesn't update itself yet.
 
 <br>
 
@@ -95,7 +95,7 @@ FrostWolf is built entirely in the open by [GitHub Actions](.github/workflows/bu
 3. **Compile:** `./mach build` with [`mozconfig`](build/mozconfig), cross-compiling for Windows x64 on Linux the way Mozilla's own build servers do.
 4. **Package:** [`package.py`](build/package.py) adds the settings, policies and theme; [`installer.nsi`](build/installer.nsi) makes the installer; checksums and signed build provenance are published with the release.
 
-Every day, the workflow checks for a new Firefox ESR and publishes a new FrostWolf when Mozilla ships security fixes.
+Every day, the workflow checks for a new **Firefox ESR** and a new **Tor**, and publishes a new FrostWolf as soon as either ships security fixes (each release says which Tor it contains).
 
 The source code lives on **[Codeberg](https://codeberg.org/anyrustslop/frostwolf)**, a non-profit, community-run home for free software. This GitHub repository is its mirror, used for the builds and downloads.
 

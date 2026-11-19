@@ -1,6 +1,6 @@
 # Builds FrostWolf (Firefox ESR, rebranded and hardened) for Windows x64 and publishes releases.
 # - tag vX:      build + release of the ESR version in FIREFOX_VERSION
-# - daily:       if Mozilla published a newer Firefox ESR (security updates), build + release it
+# - daily:       if there's a newer Firefox ESR or a newer Tor (security updates), build + release it
 # - push to main / manual run: test build, uploaded as a workflow artifact (no release)
 # Source code lives on Codeberg (https://codeberg.org/anyrustslop/frostwolf); this repository is
 # its mirror, used for builds and downloads.
@@ -36,23 +36,12 @@ jobs:
 
       - name: Version
         id: v
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            esr=$(python3 build/fetch_source.py latest)
-          else
-            esr=$(cat FIREFOX_VERSION)
-          fi
-          ver="${esr%esr}-$(cat FROSTWOLF_REVISION)"
-          echo "esr=$esr" >> "$GITHUB_OUTPUT"
-          echo "version=$ver" >> "$GITHUB_OUTPUT"
-          echo "tag=v$ver" >> "$GITHUB_OUTPUT"
-          skip=false
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            code=$(curl -s -o /dev/null -w "%{http_code}" "https://github.com/${{ github.repository }}/releases/tag/v$ver")
-            [ "$code" = "200" ] && skip=true
-          fi
-          echo "skip=$skip" >> "$GITHUB_OUTPUT"
-          echo "Firefox $esr -> FrostWolf $ver (skip: $skip)"
+          # Daily runs build when there's a newer Firefox ESR *or* a newer Tor (security fixes in
+          # either), see build/next_version.py.
+          python3 build/next_version.py "${{ github.event_name }}" | tee -a "$GITHUB_OUTPUT"
 
       - name: Test FrostWolf Guard and settings
         if: steps.v.outputs.skip != 'true'
@@ -122,6 +111,8 @@ jobs:
 
       - name: Package (portable zip + installer)
         if: steps.v.outputs.skip != 'true'
+        env:
+          FROSTWOLF_TOR_VERSION: ${{ steps.v.outputs.tor }}
         run: |
           pkg=$(ls /mnt/work/firefox-src/obj/dist/*.win64.zip | head -1)
           python3 build/package.py "$pkg" "${{ steps.v.outputs.version }}" dist
@@ -152,7 +143,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="${{ steps.v.outputs.tag }}"; ver="${{ steps.v.outputs.version }}"
-          sed -e "s/VERSION/$ver/g" -e "s/FIREFOXESR/${{ steps.v.outputs.esr }}/g" -e "s/COMMIT/$GITHUB_SHA/g" \
+          tor=$(cat dist/TOR_VERSION)
+          sed -e "s/TORVERSION/$tor/g" -e "s/VERSION/$ver/g" -e "s/FIREFOXESR/${{ steps.v.outputs.esr }}/g" \
+            -e "s/COMMIT/$GITHUB_SHA/g" -e "s/BUILDREASON/${{ steps.v.outputs.reason }}/g" \
             .github/release-notes.md > notes.md
           extra=()
           if [ "${{ github.event_name }}" = "schedule" ]; then extra=(--target "$GITHUB_SHA"); fi
