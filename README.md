@@ -86,7 +86,9 @@ Measured on one Windows 11 PC: a fresh profile in each browser, the same 4 sites
 
 FrostWolf is not the lightest browser, and we'd rather say so. It costs a bit more than Firefox because it runs **uBlock Origin** (about 120 MB, which usually pays for itself on ad-heavy sites, where blocked ads and trackers never load) and **Tor**. Like Firefox, it gives every site its own process (site isolation), which costs memory but stops one site from reading another's; FrostWolf keeps that on.
 
-What FrostWolf does to save memory: no spare background process waiting for the next tab, no hidden pre-loaded new tab, a site's process closes as soon as its last tab does, tabs of the same site share one process, a 16 MB in-memory network cache, fewer pages kept in memory for *Back*, and tabs you haven't used for 5 minutes are unloaded when memory gets low (much earlier than in Firefox). Your own results will vary with your PC and the sites you use.
+What FrostWolf does to save memory: no spare background process waiting for the next tab, no hidden pre-loaded new tab, a site's process closes as soon as its last tab does, tabs of the same site share one process, a 16 MB in-memory network cache, fewer pages kept in memory for *Back*, and tabs you haven't used for 5 minutes are unloaded when memory gets low (much earlier than in Firefox). When you step away from the computer or minimize FrostWolf, it also does what about:memory's *Minimize memory usage* button does (in our tests that freed a few dozen MB; turn it off with `frostwolf.memory.auto_free`).
+
+Treat these numbers as a rough snapshot: the same sites can use very different amounts of memory from one visit to the next (ads, videos, what's on the front page that day), so your results will vary with your PC and the sites you use.
 
 <br>
 
