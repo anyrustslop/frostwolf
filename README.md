@@ -71,6 +71,23 @@ FrostWolf starts from LibreWolf-style defaults and adds the hardening above on t
 
 Every setting is plain text you can review: [`frostwolf.cfg`](build/settings/frostwolf.cfg), [`policies.json`](build/settings/policies.json) and the [Guard add-on](build/guard).
 
+### How much RAM it uses
+
+Measured on one Windows 11 PC: a fresh profile in each browser, the same 4 sites open (a Wikipedia article, a GitHub repository, BBC News, a DuckDuckGo search), then the *private working set* of all of the browser's processes added up after 90 seconds (what Task Manager shows as memory), averaged over 2 runs.
+
+| Browser | Engine | RAM |
+|---|---|---|
+| Chromium | Blink | ~350 MB |
+| Google Chrome | Blink | ~385 MB |
+| Firefox | Gecko | ~755 MB |
+| Microsoft Edge | Blink | ~790 MB |
+| **FrostWolf** | Gecko | **~835 MB** + ~50 MB for Tor |
+| FrostWolf before the RAM tuning | Gecko | ~880 MB + ~50 MB for Tor |
+
+FrostWolf is not the lightest browser, and we'd rather say so. It costs a bit more than Firefox because it runs **uBlock Origin** (about 120 MB, which usually pays for itself on ad-heavy sites, where blocked ads and trackers never load) and **Tor**. Like Firefox, it gives every site its own process (site isolation), which costs memory but stops one site from reading another's; FrostWolf keeps that on.
+
+What FrostWolf does to save memory: no spare background process waiting for the next tab, no hidden pre-loaded new tab, a site's process closes as soon as its last tab does, tabs of the same site share one process, a 16 MB in-memory network cache, fewer pages kept in memory for *Back*, and tabs you haven't used for 5 minutes are unloaded when memory gets low (much earlier than in Firefox). Your own results will vary with your PC and the sites you use.
+
 <br>
 
 <img src="assets/section-download.png" alt="Download" width="100%">

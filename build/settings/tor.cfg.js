@@ -285,11 +285,20 @@ try {
       removable: true,
       onCreated(node) {
         node.setAttribute("image", ICON(tor.enabled()));
-      },
-      onCommand(event) {
-        const w = event.target.ownerGlobal;
-        const p = w.document.getElementById("frostwolf-tor-panel") || buildPanel(w);
-        p.openPopup(event.target, "bottomleft topleft", 0, 0, false, false);
+        // (node.ownerGlobal isn't visible from frostwolf.cfg's sandbox; ownerDocument.defaultView is.)
+        node.addEventListener("command", () => {
+          try {
+            const w = node.ownerDocument.defaultView;
+            const p = w.document.getElementById("frostwolf-tor-panel") || buildPanel(w);
+            if (p.state === "open" || p.state === "showing") {
+              p.hidePopup();
+            } else {
+              p.openPopup(node, "bottomleft topleft", 0, 0, false, false);
+            }
+          } catch (e) {
+            Cu.reportError("FrostWolf Tor button: " + e);
+          }
+        });
       },
     });
     // First time only: put it just left of the address bar (you can move it later).
